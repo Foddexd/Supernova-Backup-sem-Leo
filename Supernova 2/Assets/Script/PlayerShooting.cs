@@ -1,0 +1,145 @@
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class PlayerShooting : MonoBehaviour
+{
+    public GameObject projectilePrefab;
+    public Transform firePoint; // onde o tiro nasce (alinhado com a arma/câmera)
+    public Camera mainCamera;
+    public bool temArma = false;
+
+    [Header("Munição")]
+    public int maxBalasPorCartucho = 30;
+    public int balasNoCartucho = 30;
+
+    public TextMeshProUGUI balasTexto;
+    public TextMeshProUGUI cartuchosTexto;
+
+    private AmmoManager ammoManager;
+
+    void Start()
+    {
+        ammoManager = GetComponent<AmmoManager>()
+                   ?? GetComponentInParent<AmmoManager>()
+                   ?? FindObjectOfType<AmmoManager>();
+
+        if (ammoManager == null)
+            Debug.LogWarning("PlayerShooting: nenhum AmmoManager encontrado. Pickup pode não funcionar.");
+
+        if (temArma) balasNoCartucho = maxBalasPorCartucho;
+        AtualizarUI();
+
+        // Verificação de setup (adicionei para debug)
+        if (mainCamera == null) Debug.LogError("PlayerShooting: Atribua a mainCamera no Inspector!");
+        if (firePoint == null) Debug.LogError("PlayerShooting: Atribua o firePoint no Inspector!");
+    }
+
+    void Update()
+    {
+#if !UNITY_ANDROID && !UNITY_IOS
+        if (temArma && Input.GetMouseButtonDown(0)) TentarAtirar();
+        if (temArma && Input.GetKeyDown(KeyCode.R)) Recarregar();
+#endif
+        AtualizarUI();
+    }
+
+    public void TentarAtirar()
+    {
+        if (balasNoCartucho > 0)
+        {
+            Shoot();
+            balasNoCartucho--;
+        }
+        else if (ammoManager != null && ammoManager.GetCartuchos() > 0)
+        {
+            Debug.Log("Sem balas no cartucho! Pressione R para recarregar.");
+        }
+        else
+        {
+            Debug.Log("Acabaram todas as balas e cartuchos!");
+        }
+    }
+
+    void Shoot()
+    {
+        if (mainCamera == null)
+        {
+            Debug.LogError("Shoot: mainCamera não atribuída!");
+            return;
+        }
+
+        Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Centro da tela
+
+        // Sempre use a direção do ray (infinita). Opcional: limite distância para simular "alcance"
+        Vector3 direction = ray.direction;
+        float shootSpeed = 20f; // Velocidade da bala
+        float spawnOffset = 0.5f; // Spawn ligeiramente à frente para evitar colisão inicial com player
+
+        // Posição de spawn: firePoint + um pouco na direção para evitar overlap
+        Vector3 spawnPos = firePoint.position + direction * spawnOffset;
+
+        // Instancie o projétil
+        GameObject proj = Instantiate(projectilePrefab, spawnPos, Quaternion.LookRotation(direction));
+
+        // Ignore colisão com o player (evita sumiço imediato)
+        Collider projCollider = proj.GetComponent<Collider>();
+        Collider playerCollider = GetComponent<Collider>(); // Assumindo que o player tem Collider
+        if (projCollider != null && playerCollider != null)
+        {
+            Physics.IgnoreCollision(projCollider, playerCollider, true);
+        }
+
+        Rigidbody rb = proj.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.velocity = direction * shootSpeed;
+        }
+        else
+        {
+            Debug.LogError("Projétil sem Rigidbody! Adicione um no prefab.");
+        }
+
+        // Debug para testar direção
+        Debug.Log($"Tiro disparado! Direção: {direction}, Posição: {spawnPos}");
+    }
+
+    void Recarregar()
+    {
+        if (balasNoCartucho == maxBalasPorCartucho)
+        {
+            Debug.Log("Cartucho cheio.");
+            return;
+        }
+
+        if (ammoManager != null && ammoManager.ConsumirCartucho())
+        {
+            Debug.Log("Recarregando... Perdeu as balas restantes.");
+            balasNoCartucho = maxBalasPorCartucho;
+        }
+        else
+        {
+            Debug.Log("Sem cartuchos sobrando!");
+        }
+    }
+
+    public void EquiparArma()
+    {
+        temArma = true;
+        balasNoCartucho = maxBalasPorCartucho; // Adicionei: defina balas ao equipar (caso não esteja em Start)
+        Debug.Log("Arma equipada! Balas: " + balasNoCartucho);
+    }
+
+    void AtualizarUI()
+    {
+        if (balasTexto != null)
+        {
+            balasTexto.text = "Balas: " + balasNoCartucho;
+        }
+
+        if (cartuchosTexto != null && ammoManager != null)
+        {
+            cartuchosTexto.text = "Cartuchos: " + ammoManager.GetCartuchos();
+        }
+    }
+}
