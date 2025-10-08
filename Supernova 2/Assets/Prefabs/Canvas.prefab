@@ -5354,7 +5354,7 @@ GameObject:
   - component: {fileID: 7779058687422072742}
   - component: {fileID: 8649190582210067618}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Crosshar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5369,7 +5369,7 @@ RectTransform:
   m_GameObject: {fileID: 3875489746776836643}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.046790626, y: 0.05425, z: 0.05425}
+  m_LocalScale: {x: 0.4, y: 0.4, z: 0.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2424061792579264005}
@@ -5400,14 +5400,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 1}
+  m_Color: {r: 0.9528302, g: 0.9528302, b: 0.9528302, a: 0.60784316}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: b59abf98e983d8142904ca496cd7e6c6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11642,11 +11642,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81eb7f7b1f5b03442b98b5c0b08c15e6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canPause: 1
   menuPausa: {fileID: 1844161092190701058}
-  MenuCreditos: {fileID: 0}
-  "MenuOp\xE7\xF5es": {fileID: 0}
-  MenuControles: {fileID: 0}
-  MenuPrincipal: {fileID: 0}
 --- !u!1 &8621961475111088412
 GameObject:
   m_ObjectHideFlags: 0
