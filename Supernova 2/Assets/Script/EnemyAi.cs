@@ -51,6 +51,7 @@ public class EnemyAi : MonoBehaviour
     public int barrelLives = 3;
     public GameObject BossMorto;
     public GameObject BossMorto1;
+    public GameObject BossMorto2;
 
 
     private void Awake()
@@ -302,8 +303,9 @@ public class EnemyAi : MonoBehaviour
             // Colocar aq oq acontece qnd o boss morrer
             //   Debug.Log("Boss derrotado pelos barris!");
             BossMorto.SetActive(true);
-            BossMorto1.SetActive(true);
-            Destroy(gameObject);
+            BossMorto1.SetActive(false);
+            BossMorto2.SetActive(true);
+            
         }
     }
 
