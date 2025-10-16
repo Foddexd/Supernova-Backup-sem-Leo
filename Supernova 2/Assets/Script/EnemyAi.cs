@@ -49,7 +49,7 @@ public class EnemyAi : MonoBehaviour
     private bool isInvestigating = false;
 
     public int barrelLives = 3;
-
+    public GameObject BossMorto;
 
 
     private void Awake()
@@ -299,7 +299,8 @@ public class EnemyAi : MonoBehaviour
         if (barrelLives <= 0)
         {
             // Colocar aq oq acontece qnd o boss morrer
-         //   Debug.Log("Boss derrotado pelos barris!");
+            //   Debug.Log("Boss derrotado pelos barris!");
+            BossMorto.SetActive(true);
             Destroy(gameObject);
         }
     }
