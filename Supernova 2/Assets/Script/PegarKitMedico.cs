@@ -10,6 +10,7 @@ public class PegarKitMedico : MonoBehaviour
     public GameObject KitVisual;
     public GameObject KitInventario;
     public bool JogadorPerto = false;
+    public int itemId;
 
     public GameObject texto;
 
@@ -17,7 +18,17 @@ public class PegarKitMedico : MonoBehaviour
 
     public GameObject textopegar;
 
-  
+    private OrdemInventario inventory;
+
+    void Start()
+    {
+        // Encontra o script de inventário na cena
+        inventory = FindObjectOfType<OrdemInventario>();
+        if (inventory == null)
+        {
+            Debug.LogError("Script OrdemInventario não encontrado! Certifique-se de que ele esteja na cena.");
+        }
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -38,7 +49,7 @@ public class PegarKitMedico : MonoBehaviour
         }
     }
 
-  
+
     void Update()
     {
         if (JogadorPerto && Input.GetKeyDown(KeyCode.E) && KitVisual.activeSelf)
@@ -47,8 +58,12 @@ public class PegarKitMedico : MonoBehaviour
             KitVisual.SetActive(false);
             MostrarTexto();
             KitInventario.SetActive(true);
-
-           
+            // Adicionado: Chama o método AddItem do inventário
+            if (inventory != null)
+            {
+                inventory.AddItem(itemId);
+                Debug.Log($"Kit Médico (ID: {itemId}) adicionado ao inventário!");
+            }
         }
     }
     public void MostrarTexto()
