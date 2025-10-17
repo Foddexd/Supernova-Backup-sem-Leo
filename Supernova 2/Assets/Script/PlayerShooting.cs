@@ -5,11 +5,11 @@ using UnityEngine.UI;
 public class PlayerShooting : MonoBehaviour
 {
     public GameObject projectilePrefab;
-    public Transform firePoint; // onde o tiro nasce (alinhado com a arma/câmera)
+    public Transform firePoint; // onde o tiro nasce (alinhado com a arma/cï¿½mera)
     public Camera mainCamera;
     public bool temArma = false;
 
-    [Header("Munição")]
+    [Header("Muniï¿½ï¿½o")]
     public int maxBalasPorCartucho = 30;
     public int balasNoCartucho = 30;
 
@@ -25,12 +25,12 @@ public class PlayerShooting : MonoBehaviour
                    ?? FindObjectOfType<AmmoManager>();
 
         if (ammoManager == null)
-            Debug.LogWarning("PlayerShooting: nenhum AmmoManager encontrado. Pickup pode não funcionar.");
+            Debug.LogWarning("PlayerShooting: nenhum AmmoManager encontrado. Pickup pode nï¿½o funcionar.");
 
         if (temArma) balasNoCartucho = maxBalasPorCartucho;
         AtualizarUI();
 
-        // Verificação de setup (adicionei para debug)
+        // Verificaï¿½ï¿½o de setup (adicionei para debug)
         if (mainCamera == null) Debug.LogError("PlayerShooting: Atribua a mainCamera no Inspector!");
         if (firePoint == null) Debug.LogError("PlayerShooting: Atribua o firePoint no Inspector!");
     }
@@ -65,24 +65,24 @@ public class PlayerShooting : MonoBehaviour
     {
         if (mainCamera == null)
         {
-            Debug.LogError("Shoot: mainCamera não atribuída!");
+            Debug.LogError("Shoot: mainCamera nï¿½o atribuï¿½da!");
             return;
         }
 
         Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Centro da tela
 
-        // Sempre use a direção do ray (infinita). Opcional: limite distância para simular "alcance"
+        // Sempre use a direï¿½ï¿½o do ray (infinita). Opcional: limite distï¿½ncia para simular "alcance"
         Vector3 direction = ray.direction;
-        float shootSpeed = 20f; // Velocidade da bala
-        float spawnOffset = 0.5f; // Spawn ligeiramente à frente para evitar colisão inicial com player
+        float shootSpeed = 40f; // Velocidade da bala
+        float spawnOffset = 0.5f; // Spawn ligeiramente ï¿½ frente para evitar colisï¿½o inicial com player
 
-        // Posição de spawn: firePoint + um pouco na direção para evitar overlap
+        // Posiï¿½ï¿½o de spawn: firePoint + um pouco na direï¿½ï¿½o para evitar overlap
         Vector3 spawnPos = firePoint.position + direction * spawnOffset;
 
-        // Instancie o projétil
+        // Instancie o projï¿½til
         GameObject proj = Instantiate(projectilePrefab, spawnPos, Quaternion.LookRotation(direction));
 
-        // Ignore colisão com o player (evita sumiço imediato)
+        // Ignore colisï¿½o com o player (evita sumiï¿½o imediato)
         Collider projCollider = proj.GetComponent<Collider>();
         Collider playerCollider = GetComponent<Collider>(); // Assumindo que o player tem Collider
         if (projCollider != null && playerCollider != null)
@@ -97,11 +97,11 @@ public class PlayerShooting : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Projétil sem Rigidbody! Adicione um no prefab.");
+            Debug.LogError("Projï¿½til sem Rigidbody! Adicione um no prefab.");
         }
 
-        // Debug para testar direção
-        Debug.Log($"Tiro disparado! Direção: {direction}, Posição: {spawnPos}");
+        // Debug para testar direï¿½ï¿½o
+        Debug.Log($"Tiro disparado! Direï¿½ï¿½o: {direction}, Posiï¿½ï¿½o: {spawnPos}");
     }
 
     void Recarregar()
@@ -126,7 +126,7 @@ public class PlayerShooting : MonoBehaviour
     public void EquiparArma()
     {
         temArma = true;
-        balasNoCartucho = maxBalasPorCartucho; // Adicionei: defina balas ao equipar (caso não esteja em Start)
+        balasNoCartucho = maxBalasPorCartucho; // Adicionei: defina balas ao equipar (caso nï¿½o esteja em Start)
         Debug.Log("Arma equipada! Balas: " + balasNoCartucho);
     }
 

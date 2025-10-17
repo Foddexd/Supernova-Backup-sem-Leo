@@ -10,19 +10,19 @@ public class PlayerProjectile : MonoBehaviour
     {
         Destroy(gameObject, lifetime);
 
-        // Ignora camadas desnecessárias (ex: se player em layer "Player")
+        // Ignora camadas desnecessï¿½rias (ex: se player em layer "Player")
         Collider projCol = GetComponent<Collider>();
         if (projCol != null)
         {
             // Exemplo: Ignore layer do player (ajuste o layer ID no seu projeto)
-            Physics.IgnoreLayerCollision(projCol.gameObject.layer, LayerMask.NameToLayer("Player"), true);
+            Physics.IgnoreLayerCollision(projCol.gameObject.layer, LayerMask.NameToLayer("WhatIsPlayer"), true);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
         
-        Debug.Log($"Projétil colidiu com: {other.name} (tag: {other.tag})"); 
+        Debug.Log($"Projï¿½til colidiu com: {other.name} (tag: {other.tag})"); 
 
         if (other.CompareTag("Player")) return;
        
@@ -87,7 +87,7 @@ public class PlayerProjectile : MonoBehaviour
             return;
         }
 
-        // Para qualquer outra colisão (ex: parede, chão), destrói a bala
+        // Para qualquer outra colisï¿½o (ex: parede, chï¿½o), destrï¿½i a bala
         Destroy(gameObject);
     }
 }
