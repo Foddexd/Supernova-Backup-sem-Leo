@@ -18,6 +18,10 @@ public class PlayerShooting : MonoBehaviour
 
     private AmmoManager ammoManager;
 
+    public GameObject Som;
+    public GameObject Luz;
+
+
     void Start()
     {
         ammoManager = GetComponent<AmmoManager>()
@@ -50,6 +54,8 @@ public class PlayerShooting : MonoBehaviour
         {
             Shoot();
             balasNoCartucho--;
+            Som.SetActive (true);
+            Luz.SetActive(true);
         }
         else if (ammoManager != null && ammoManager.GetCartuchos() > 0)
         {

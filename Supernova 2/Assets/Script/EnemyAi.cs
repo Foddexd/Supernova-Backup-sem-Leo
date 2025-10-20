@@ -217,7 +217,7 @@ public class EnemyAi : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, attackDistance);
 
         // Visual FOV
-        Vector3 origin = transform.position + Vector3.up * 1.5f;
+        Vector3 origin = transform.position + Vector3.up * 0.03f;
         float angleStep = fieldOfView / (rayCount - 1);
         float startAngle = -fieldOfView / 2f;
 
