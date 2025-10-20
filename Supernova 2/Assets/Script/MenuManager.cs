@@ -10,6 +10,8 @@ public class MenuManager : MonoBehaviour
     public static MenuManager instance;
     public void Awake() => instance = this;
 
+    public PlayerShooting playerShooting;
+
     private void Start()
     {
         if(canPause)
@@ -29,6 +31,11 @@ public class MenuManager : MonoBehaviour
                 if (!InventoryToggle.instance.IsInventoryOpen() && !DialogueManager.instance.IsFreezingDialogueOpen())
                 {
                     FreezeGame(isMenuOpen);
+                }
+
+                if (playerShooting != null)
+                {
+                    playerShooting.enabled = !isMenuOpen;
                 }
             }
         }

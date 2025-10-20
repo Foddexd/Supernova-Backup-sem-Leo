@@ -420770,6 +420770,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.x
       value: 0.00390625
       objectReference: {fileID: 0}
+    - target: {fileID: 838401945930929860, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
+      propertyPath: playerShooting
+      value: 
+      objectReference: {fileID: 1712500685}
     - target: {fileID: 1029206344513398696, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -420799,6 +420803,10 @@ PrefabInstance:
       value: 0.17016602
       objectReference: {fileID: 0}
     - target: {fileID: 1786404855124720169, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1844161092190701058, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -421202,6 +421210,10 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8809261620476436466, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
+      propertyPath: playerShooting
+      value: 
+      objectReference: {fileID: 1712500685}
     - target: {fileID: 8811935777144253414, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.00390625

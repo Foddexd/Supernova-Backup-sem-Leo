@@ -9,6 +9,8 @@ public class InventoryToggle : MonoBehaviour
     public static InventoryToggle instance;
     public void Awake() => instance = this;
 
+    public PlayerShooting playerShooting;
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Tab))
@@ -27,10 +29,15 @@ public class InventoryToggle : MonoBehaviour
             {
                 MenuManager.instance.FreezeGame(false);
             }
+            if (playerShooting != null)
+                playerShooting.enabled = true;
         }
         else
         {
             MenuManager.instance.FreezeGame(true);
+
+            if (playerShooting != null)
+                playerShooting.enabled = false;
         }
 
         isInventoryOpen = !isInventoryOpen;
