@@ -171786,11 +171786,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1655592596326333889, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
       propertyPath: viewDistance
-      value: 4.1
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1655592596326333889, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
       propertyPath: attackDistance
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1655592596326333889, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
       propertyPath: memoryDuration
@@ -261651,7 +261651,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1655592596326333889, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
       propertyPath: attackDistance
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1655592596326333889, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
       propertyPath: memoryDuration
