@@ -7,6 +7,7 @@ public class AtivadorPorTrigger : MonoBehaviour
     public GameObject objeto1;
     public GameObject objeto2;
     public GameObject objeto3;
+    public GameObject objeto4;
 
     [Header("C�digo a ser executado")]
     public UnityEvent aoAtivar;
@@ -18,6 +19,7 @@ public class AtivadorPorTrigger : MonoBehaviour
             objeto1.SetActive(false);
             objeto2.SetActive(false);
             objeto3.SetActive(true);
+            objeto4.SetActive(true);
 
             aoAtivar.Invoke();
 
