@@ -21,6 +21,7 @@ public class CadeadoNumerico : MonoBehaviour
     public GameObject ColliderAbrirMinigame;
     public GameObject TextoInteragir;
     public GameObject item1;
+    public GameObject item2;
 
     private void Start()
     {
@@ -69,6 +70,7 @@ public class CadeadoNumerico : MonoBehaviour
         desbloqueado = true;
         StartCoroutine(FecharMinigame());
         item1.SetActive(false);
+        item2.SetActive(true);
         
     }
 

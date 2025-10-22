@@ -6,8 +6,9 @@ public class AtivadorPorTrigger : MonoBehaviour
     [Header("Objeto a ser ativado")]
     public GameObject objeto1;
     public GameObject objeto2;
+    public GameObject objeto3;
 
-    [Header("Código a ser executado")]
+    [Header("Cï¿½digo a ser executado")]
     public UnityEvent aoAtivar;
 
     private void OnTriggerEnter(Collider other)
@@ -16,11 +17,12 @@ public class AtivadorPorTrigger : MonoBehaviour
         {
             objeto1.SetActive(false);
             objeto2.SetActive(false);
+            objeto3.SetActive(true);
 
             aoAtivar.Invoke();
 
             
-            Destroy(gameObject);
+            
         }
     }
 }
