@@ -30,13 +30,16 @@ public class EnemyAi : MonoBehaviour
     public float fieldOfView = 120f;
     public float viewDistance = 15f;
     public int rayCount = 25;
-    public float attackDistance = 5f; 
+    public float attackDistance = 5f;
+
+    public float hearingDistance = 8f;
 
     // Mem�ria do jogador
     private float lastTimeSeenPlayer = Mathf.NegativeInfinity;
-    public float memoryDuration = 5f;
+    public float memoryDuration = 7f;
     private Vector3 lastKnownPlayerPosition;
     private bool isChasingLastKnownPosition = false;
+    private bool wasSeeingPlayerLastFrame = false;
 
     // Investiga��o
     public float investigateDurationPerPoint = 1.5f;
@@ -62,18 +65,19 @@ public class EnemyAi : MonoBehaviour
 
     private void Update()
     {
-
         BossStun bossStun = GetComponent<BossStun>();
         if (bossStun != null && bossStun.EstaStunado)
         {
             agent.isStopped = true;
-            return; // Pula toda a l�gica da IA durante o stun
+            return; // Pula toda a lógica da IA durante o stun
         }
-
         bool canSeePlayer = CanSeePlayer();
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         bool inAttackRange = distanceToPlayer <= attackDistance;
-
+        PlayerController playerController = player.GetComponent<PlayerController>();
+        bool playerIsHiding = (playerController != null && playerController.IsHiding());
+        // Novo: Verifica se o jogador está próximo e não escondido (simula "ouvido")
+        bool canHearPlayer = (distanceToPlayer <= hearingDistance) && !playerIsHiding;
         //Debug.Log("can see player: " + canSeePlayer + ", in attack range: " + inAttackRange);
 
         if (canSeePlayer)
@@ -81,10 +85,22 @@ public class EnemyAi : MonoBehaviour
             lastTimeSeenPlayer = Time.time;
             lastKnownPlayerPosition = player.position;
             isChasingLastKnownPosition = true;
+            wasSeeingPlayerLastFrame = true;
         }
-
+        else if (canHearPlayer && !isInvestigating)
+        {
+            // Só atualiza memória se "ouve" e não está escondido
+            lastTimeSeenPlayer = Time.time;
+            lastKnownPlayerPosition = player.position;
+            isChasingLastKnownPosition = true;
+        }
+        // Novo: Se estava vendo o jogador no frame anterior e agora não vê, inicie investigação imediatamente
+        if (wasSeeingPlayerLastFrame && !canSeePlayer && !isInvestigating && !playerIsHiding)
+        {
+            StartInvestigation();
+        }
+        wasSeeingPlayerLastFrame = canSeePlayer;
         bool rememberPlayer = (Time.time - lastTimeSeenPlayer) <= memoryDuration;
-
         if (canSeePlayer && inAttackRange)
         {
             isInvestigating = false;
@@ -252,12 +268,12 @@ public class EnemyAi : MonoBehaviour
     {
         agent.isStopped = false;
         agent.SetDestination(lastKnownPlayerPosition);
-
         if (Vector3.Distance(transform.position, lastKnownPlayerPosition) < 1.5f)
         {
             StartInvestigation();
         }
     }
+
 
 
     private void Investigate()
