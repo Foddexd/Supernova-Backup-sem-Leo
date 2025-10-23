@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - ExplosiveBarrel
+  - Boss
   layers:
   - Default
   - TransparentFX
