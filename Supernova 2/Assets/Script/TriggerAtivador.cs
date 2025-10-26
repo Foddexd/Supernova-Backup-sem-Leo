@@ -10,6 +10,8 @@ public class TriggerActivator : MonoBehaviour
     public GameObject item6;
     public GameObject item7;
     public GameObject item8;
+    public GameObject item9;
+    public GameObject item10;
     
 
     private void OnTriggerEnter(Collider other)
@@ -24,6 +26,8 @@ public class TriggerActivator : MonoBehaviour
             if (item6 != null) item6.SetActive(false);
             if (item7 != null) item7.SetActive(true);
             if (item8 != null) item8.SetActive(true);
+            if (item9 != null) item9.SetActive(false);
+            if (item10 != null) item10.SetActive(false);
           
           
 

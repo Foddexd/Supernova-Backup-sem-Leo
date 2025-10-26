@@ -318,9 +318,10 @@ public class EnemyAi : MonoBehaviour
         {
             // Colocar aq oq acontece qnd o boss morrer
             //   Debug.Log("Boss derrotado pelos barris!");
+            BossMorto2.SetActive(true);
             BossMorto.SetActive(true);
             BossMorto1.SetActive(false);
-            BossMorto2.SetActive(true);
+    
             
         }
     }
