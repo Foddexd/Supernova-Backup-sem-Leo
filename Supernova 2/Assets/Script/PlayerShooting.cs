@@ -78,47 +78,46 @@ public class PlayerShooting : MonoBehaviour
             Debug.LogError("Shoot: mainCamera não atribuída!");
             return;
         }
-
         Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Centro da tela
         Vector3 direction = ray.direction;
         float shootSpeed = 40f;
         float spawnOffset = 0.5f;
         Vector3 spawnPos = firePoint.position + direction * spawnOffset;
-
         if (upgradeTiroDuplo)
         {
             // Atira dois projéteis com offset lateral pequeno para simular dispersão
-            Vector3 rightOffset = mainCamera.transform.right * 0.1f; // Offset para a direita (ajuste o valor se quiser mais/menos dispersão)
-
-            // Primeiro tiro (original)
-            InstanciarProjétil(spawnPos, direction, shootSpeed);
-
+            Vector3 rightOffset = mainCamera.transform.right * 0.1f; // Offset para a direita (aumente para mais dispersão, ex.: 0.2f)
+                                                                     // Primeiro tiro (original)
+            GameObject proj1 = InstanciarProjétil(spawnPos, direction, shootSpeed);
             // Segundo tiro (com offset)
             Vector3 offsetDirection = (direction + rightOffset * 0.5f).normalized; // Pequena inclinação
             Vector3 offsetSpawnPos = firePoint.position + offsetDirection * spawnOffset;
-            InstanciarProjétil(offsetSpawnPos, offsetDirection, shootSpeed);
+            GameObject proj2 = InstanciarProjétil(offsetSpawnPos, offsetDirection, shootSpeed);
+            // Ignorar colisão entre os dois projéteis para evitar que se "batam"
+            Collider collider1 = proj1.GetComponent<Collider>();
+            Collider collider2 = proj2.GetComponent<Collider>();
+            if (collider1 != null && collider2 != null)
+            {
+                Physics.IgnoreCollision(collider1, collider2, true);
+            }
         }
         else
         {
             // Tiro único (padrão)
             InstanciarProjétil(spawnPos, direction, shootSpeed);
         }
-
         Debug.Log($"Tiro disparado! Upgrade Tiro Duplo: {upgradeTiroDuplo}, Posição: {spawnPos}");
     }
-
     // Método auxiliar para instanciar projétil (evita duplicação de código)
-    private void InstanciarProjétil(Vector3 spawnPos, Vector3 direction, float shootSpeed)
+    private GameObject InstanciarProjétil(Vector3 spawnPos, Vector3 direction, float shootSpeed)
     {
         GameObject proj = Instantiate(projectilePrefab, spawnPos, Quaternion.LookRotation(direction));
-
         Collider projCollider = proj.GetComponent<Collider>();
         Collider playerCollider = GetComponent<Collider>();
         if (projCollider != null && playerCollider != null)
         {
             Physics.IgnoreCollision(projCollider, playerCollider, true);
         }
-
         Rigidbody rb = proj.GetComponent<Rigidbody>();
         if (rb != null)
         {
@@ -128,8 +127,8 @@ public class PlayerShooting : MonoBehaviour
         {
             Debug.LogError("Projétil sem Rigidbody! Adicione um no prefab.");
         }
+        return proj; // Retorna o projétil para uso no IgnoreCollision
     }
-
     void Recarregar()
     {
         if (balasNoCartucho == maxBalasPorCartucho)
