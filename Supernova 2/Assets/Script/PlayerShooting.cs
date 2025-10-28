@@ -5,12 +5,12 @@ using UnityEngine.UI;
 public class PlayerShooting : MonoBehaviour
 {
     public GameObject projectilePrefab;
-    public Transform firePoint; // onde o tiro nasce (alinhado com a arma/c�mera)
+    public Transform firePoint; // onde o tiro nasce (alinhado com a arma/câmera)
     public Camera mainCamera;
     public bool temArma = false;
 
-    [Header("Muni��o")]
-    public int maxBalasPorCartucho = 30;
+    [Header("Munição")]
+    public int maxBalasPorCartucho = 30; // Padrão: 30. O upgrade pode garantir ou aumentar isso.
     public int balasNoCartucho = 30;
 
     public TextMeshProUGUI balasTexto;
@@ -21,6 +21,10 @@ public class PlayerShooting : MonoBehaviour
     public GameObject Som;
     public GameObject Luz;
 
+    // Novos campos para upgrades
+    [Header("Upgrades")]
+    public bool upgradeCartuchoGrande = false; // Upgrade para cartucho de 30 balas
+    public bool upgradeTiroDuplo = false; // Upgrade para atirar dois tiros
 
     void Start()
     {
@@ -29,12 +33,12 @@ public class PlayerShooting : MonoBehaviour
                    ?? FindObjectOfType<AmmoManager>();
 
         if (ammoManager == null)
-            Debug.LogWarning("PlayerShooting: nenhum AmmoManager encontrado. Pickup pode n�o funcionar.");
+            Debug.LogWarning("PlayerShooting: nenhum AmmoManager encontrado. Pickup pode não funcionar.");
 
         if (temArma) balasNoCartucho = maxBalasPorCartucho;
         AtualizarUI();
 
-        // Verifica��o de setup (adicionei para debug)
+        // Verificação de setup (adicionei para debug)
         if (mainCamera == null) Debug.LogError("PlayerShooting: Atribua a mainCamera no Inspector!");
         if (firePoint == null) Debug.LogError("PlayerShooting: Atribua o firePoint no Inspector!");
     }
@@ -54,7 +58,7 @@ public class PlayerShooting : MonoBehaviour
         {
             Shoot();
             balasNoCartucho--;
-            Som.SetActive (true);
+            Som.SetActive(true);
             Luz.SetActive(true);
         }
         else if (ammoManager != null && ammoManager.GetCartuchos() > 0)
@@ -71,26 +75,45 @@ public class PlayerShooting : MonoBehaviour
     {
         if (mainCamera == null)
         {
-            Debug.LogError("Shoot: mainCamera n�o atribu�da!");
+            Debug.LogError("Shoot: mainCamera não atribuída!");
             return;
         }
 
         Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Centro da tela
-
-        // Sempre use a dire��o do ray (infinita). Opcional: limite dist�ncia para simular "alcance"
         Vector3 direction = ray.direction;
-        float shootSpeed = 40f; // Velocidade da bala
-        float spawnOffset = 0.5f; // Spawn ligeiramente � frente para evitar colis�o inicial com player
-
-        // Posi��o de spawn: firePoint + um pouco na dire��o para evitar overlap
+        float shootSpeed = 40f;
+        float spawnOffset = 0.5f;
         Vector3 spawnPos = firePoint.position + direction * spawnOffset;
 
-        // Instancie o proj�til
+        if (upgradeTiroDuplo)
+        {
+            // Atira dois projéteis com offset lateral pequeno para simular dispersão
+            Vector3 rightOffset = mainCamera.transform.right * 0.1f; // Offset para a direita (ajuste o valor se quiser mais/menos dispersão)
+
+            // Primeiro tiro (original)
+            InstanciarProjétil(spawnPos, direction, shootSpeed);
+
+            // Segundo tiro (com offset)
+            Vector3 offsetDirection = (direction + rightOffset * 0.5f).normalized; // Pequena inclinação
+            Vector3 offsetSpawnPos = firePoint.position + offsetDirection * spawnOffset;
+            InstanciarProjétil(offsetSpawnPos, offsetDirection, shootSpeed);
+        }
+        else
+        {
+            // Tiro único (padrão)
+            InstanciarProjétil(spawnPos, direction, shootSpeed);
+        }
+
+        Debug.Log($"Tiro disparado! Upgrade Tiro Duplo: {upgradeTiroDuplo}, Posição: {spawnPos}");
+    }
+
+    // Método auxiliar para instanciar projétil (evita duplicação de código)
+    private void InstanciarProjétil(Vector3 spawnPos, Vector3 direction, float shootSpeed)
+    {
         GameObject proj = Instantiate(projectilePrefab, spawnPos, Quaternion.LookRotation(direction));
 
-        // Ignore colis�o com o player (evita sumi�o imediato)
         Collider projCollider = proj.GetComponent<Collider>();
-        Collider playerCollider = GetComponent<Collider>(); // Assumindo que o player tem Collider
+        Collider playerCollider = GetComponent<Collider>();
         if (projCollider != null && playerCollider != null)
         {
             Physics.IgnoreCollision(projCollider, playerCollider, true);
@@ -103,11 +126,8 @@ public class PlayerShooting : MonoBehaviour
         }
         else
         {
-            Debug.LogError("Proj�til sem Rigidbody! Adicione um no prefab.");
+            Debug.LogError("Projétil sem Rigidbody! Adicione um no prefab.");
         }
-
-        // Debug para testar dire��o
-        Debug.Log($"Tiro disparado! Dire��o: {direction}, Posi��o: {spawnPos}");
     }
 
     void Recarregar()
@@ -121,7 +141,7 @@ public class PlayerShooting : MonoBehaviour
         if (ammoManager != null && ammoManager.ConsumirCartucho())
         {
             Debug.Log("Recarregando... Perdeu as balas restantes.");
-            balasNoCartucho = maxBalasPorCartucho;
+            balasNoCartucho = maxBalasPorCartucho; // Com upgrade, será 30 se ativado
         }
         else
         {
@@ -132,8 +152,26 @@ public class PlayerShooting : MonoBehaviour
     public void EquiparArma()
     {
         temArma = true;
-        balasNoCartucho = maxBalasPorCartucho; // Adicionei: defina balas ao equipar (caso n�o esteja em Start)
+        balasNoCartucho = maxBalasPorCartucho;
         Debug.Log("Arma equipada! Balas: " + balasNoCartucho);
+    }
+
+    // Novos métodos para ativar upgrades (chame esses de um script de coleta)
+    public void AtivarUpgradeCartuchoGrande()
+    {
+        upgradeCartuchoGrande = true;
+        upgradeTiroDuplo = false; // Desativa o outro upgrade
+        maxBalasPorCartucho = 30; // Garante ou define para 30
+        balasNoCartucho = Mathf.Min(balasNoCartucho, maxBalasPorCartucho); // Ajusta se necessário
+        Debug.Log("Upgrade Cartucho Grande ativado! Máximo de balas por cartucho: 30");
+    }
+
+    public void AtivarUpgradeTiroDuplo()
+    {
+        upgradeTiroDuplo = true;
+        upgradeCartuchoGrande = false; // Desativa o outro upgrade
+        maxBalasPorCartucho = 30; // Volta ao padrão (ou ajuste se quiser diferente)
+        Debug.Log("Upgrade Tiro Duplo ativado! Agora atira dois tiros.");
     }
 
     void AtualizarUI()
