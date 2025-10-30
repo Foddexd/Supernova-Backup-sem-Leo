@@ -9,6 +9,9 @@ public class AbrirPuzzle : MonoBehaviour
     public bool PlayerNoTrigger = false;
     public bool PuzzleAberto = false;
 
+    // Adicione uma referência ao script de tiro do jogador
+    public PlayerShooting playerShooting;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -37,11 +40,18 @@ public class AbrirPuzzle : MonoBehaviour
         }
     }
 
-   
+
     public void OpenPuzzle(bool puzzleOpened)
     {
         PuzzleAberto = puzzleOpened;
         Puzzle.SetActive(PuzzleAberto);
+
+        // Desabilite o tiro quando o puzzle estiver aberto, habilite quando fechado
+        if (playerShooting != null)
+        {
+            playerShooting.enabled = !PuzzleAberto;
+        }
+
         if (!MenuManager.instance.IsMenuOpen() && !InventoryToggle.instance.IsInventoryOpen() && !DialogueManager.instance.IsFreezingDialogueOpen())
         {
             MenuManager.instance.FreezeGame(PuzzleAberto);

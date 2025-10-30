@@ -259017,6 +259017,7 @@ MonoBehaviour:
   toggleKey: 101
   PlayerNoTrigger: 0
   PuzzleAberto: 0
+  playerShooting: {fileID: 0}
 --- !u!65 &1229974510
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -305541,7 +305542,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1228663377073176797, guid: 1e8242b742b0ef94481016e3a1089f0e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -15
+      value: -102
       objectReference: {fileID: 0}
     - target: {fileID: 1228663377073176797, guid: 1e8242b742b0ef94481016e3a1089f0e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -305549,7 +305550,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1228663377073176797, guid: 1e8242b742b0ef94481016e3a1089f0e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -12
+      value: 47.4
       objectReference: {fileID: 0}
     - target: {fileID: 1228663377073176797, guid: 1e8242b742b0ef94481016e3a1089f0e, type: 3}
       propertyPath: m_LocalRotation.w
@@ -433338,7 +433339,7 @@ Transform:
   m_GameObject: {fileID: 2000953341}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -14.67, y: 1.6700001, z: -14.04}
+  m_LocalPosition: {x: -101.67, y: 1.6700001, z: 45.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -463973,7 +463974,7 @@ Transform:
   m_GameObject: {fileID: 2129796813}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -14.67, y: 1.6700001, z: -14.04}
+  m_LocalPosition: {x: -101.67, y: 1.6700001, z: 45.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
