@@ -26,7 +26,7 @@ public class EnemyAi : MonoBehaviour
     public GameObject projectile;
     public Transform firePoint;
 
-    // Detec��o
+    // Detecção
     public float fieldOfView = 120f;
     public float viewDistance = 15f;
     public int rayCount = 25;
@@ -34,28 +34,18 @@ public class EnemyAi : MonoBehaviour
 
     public float hearingDistance = 8f;
 
-    // Mem�ria do jogador
+    // Memória do jogador
     private float lastTimeSeenPlayer = Mathf.NegativeInfinity;
-    public float memoryDuration = 7f;
+    public float memoryDuration = 5f;
     private Vector3 lastKnownPlayerPosition;
-    private bool isChasingLastKnownPosition = false;
-    private bool wasSeeingPlayerLastFrame = false;
 
-    // Investiga��o
-    public float investigateDurationPerPoint = 1.5f;
-    public float investigateRadius = 3f;
-    public int investigatePointCount = 3;
-
-    private List<Vector3> investigatePoints = new List<Vector3>();
-    private int currentInvestigateIndex = 0;
-    private float investigateTimer = 0f;
-    private bool isInvestigating = false;
+    // Novo: Distância mínima para evitar travamento quando perto
+    public float minChaseDistance = 2f;
 
     public int barrelLives = 3;
     public GameObject BossMorto;
     public GameObject BossMorto1;
     public GameObject BossMorto2;
-
 
     private void Awake()
     {
@@ -69,56 +59,44 @@ public class EnemyAi : MonoBehaviour
         if (bossStun != null && bossStun.EstaStunado)
         {
             agent.isStopped = true;
-            return; // Pula toda a lógica da IA durante o stun
+            return;
         }
+
         bool canSeePlayer = CanSeePlayer();
         float distanceToPlayer = Vector3.Distance(transform.position, player.position);
         bool inAttackRange = distanceToPlayer <= attackDistance;
         PlayerController playerController = player.GetComponent<PlayerController>();
         bool playerIsHiding = (playerController != null && playerController.IsHiding());
-        // Novo: Verifica se o jogador está próximo e não escondido (simula "ouvido")
-        bool canHearPlayer = (distanceToPlayer <= hearingDistance) && !playerIsHiding;
-        //Debug.Log("can see player: " + canSeePlayer + ", in attack range: " + inAttackRange);
 
+        // Reseta memória imediatamente se o jogador se esconder
+        if (playerIsHiding)
+        {
+            lastTimeSeenPlayer = Mathf.NegativeInfinity;
+        }
+
+        // Atualiza memória apenas se vê o jogador
         if (canSeePlayer)
         {
             lastTimeSeenPlayer = Time.time;
             lastKnownPlayerPosition = player.position;
-            isChasingLastKnownPosition = true;
-            wasSeeingPlayerLastFrame = true;
         }
-        else if (canHearPlayer && !isInvestigating)
-        {
-            // Só atualiza memória se "ouve" e não está escondido
-            lastTimeSeenPlayer = Time.time;
-            lastKnownPlayerPosition = player.position;
-            isChasingLastKnownPosition = true;
-        }
-        // Novo: Se estava vendo o jogador no frame anterior e agora não vê, inicie investigação imediatamente
-        if (wasSeeingPlayerLastFrame && !canSeePlayer && !isInvestigating && !playerIsHiding)
-        {
-            StartInvestigation();
-        }
-        wasSeeingPlayerLastFrame = canSeePlayer;
+
+        // Verifica se lembra do jogador
         bool rememberPlayer = (Time.time - lastTimeSeenPlayer) <= memoryDuration;
+
+        // Lógica principal
         if (canSeePlayer && inAttackRange)
         {
-            isInvestigating = false;
             AttackPlayer();
         }
-        else if (rememberPlayer && !isInvestigating)
+        else if (canSeePlayer || rememberPlayer)
         {
-            ChaseLastKnownPosition();
-        }
-        else if (isInvestigating)
-        {
-            Investigate();
+            ChasePlayer();
         }
         else
         {
             Patroling();
         }
-
     }
 
     private void Patroling()
@@ -150,16 +128,26 @@ public class EnemyAi : MonoBehaviour
 
     private void ChasePlayer()
     {
-        agent.isStopped = false;
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
 
-        if (player != null)
-            agent.SetDestination(player.position);
+        if (distanceToPlayer > minChaseDistance)
+        {
+            // Se estiver longe o suficiente, persegue normalmente
+            agent.isStopped = false;
+            if (player != null)
+                agent.SetDestination(player.position);
+        }
+        else
+        {
+            // Se estiver muito perto, para e olha para o jogador para evitar travamento
+            agent.isStopped = true;
+            transform.LookAt(player);
+        }
     }
 
     private void AttackPlayer()
     {
         agent.isStopped = true;
-        //agent.SetDestination(transform.position);
         transform.LookAt(player);
 
         if (!alreadyAttacked)
@@ -199,7 +187,7 @@ public class EnemyAi : MonoBehaviour
         PlayerController playerController = player.GetComponent<PlayerController>();
         if (playerController != null && playerController.IsHiding())
         {
-            return false; // O jogador est� escondido
+            return false;
         }
 
         Vector3 origin = transform.position + Vector3.up * 1.5f;
@@ -225,14 +213,16 @@ public class EnemyAi : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        // Range
         Gizmos.color = Color.cyan;
         Gizmos.DrawWireSphere(transform.position, viewDistance);
 
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, attackDistance);
 
-        // Visual FOV
+        // Novo: Gizmo para minChaseDistance
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, minChaseDistance);
+
         Vector3 origin = transform.position + Vector3.up * 0.03f;
         float angleStep = fieldOfView / (rayCount - 1);
         float startAngle = -fieldOfView / 2f;
@@ -245,86 +235,16 @@ public class EnemyAi : MonoBehaviour
             Gizmos.color = Color.yellow;
             Gizmos.DrawRay(origin, dir * viewDistance);
         }
-
-    }
-    private void StartInvestigation()
-    {
-        isInvestigating = true;
-        investigatePoints.Clear();
-
-        for (int i = 0; i < investigatePointCount; i++)
-        {
-            Vector2 randomCircle = Random.insideUnitCircle * investigateRadius;
-            Vector3 randomPoint = lastKnownPlayerPosition + new Vector3(randomCircle.x, 0, randomCircle.y);
-            investigatePoints.Add(randomPoint);
-        }
-
-        currentInvestigateIndex = 0;
-        investigateTimer = investigateDurationPerPoint;
-        agent.SetDestination(investigatePoints[currentInvestigateIndex]);
     }
 
-    private void ChaseLastKnownPosition()
-    {
-        agent.isStopped = false;
-        agent.SetDestination(lastKnownPlayerPosition);
-        if (Vector3.Distance(transform.position, lastKnownPlayerPosition) < 1.5f)
-        {
-            StartInvestigation();
-        }
-    }
-
-
-
-    private void Investigate()
-    {
-        agent.isStopped = false;
-
-        if (currentInvestigateIndex >= investigatePoints.Count)
-        {
-            // Acabou os pontos, termina a investiga��o
-            isInvestigating = false;
-            lastTimeSeenPlayer = Mathf.NegativeInfinity;
-            return;
-        }
-
-        Vector3 target = investigatePoints[currentInvestigateIndex];
-        agent.SetDestination(target);
-
-        if (Vector3.Distance(transform.position, target) < 1.5f)
-        {
-            investigateTimer -= Time.deltaTime;
-
-            // Gira um pouco como se estivesse olhando em volta
-            transform.Rotate(Vector3.up * 60f * Time.deltaTime);
-
-            if (investigateTimer <= 0f)
-            {
-                currentInvestigateIndex++;
-                if (currentInvestigateIndex < investigatePoints.Count)
-                {
-                    investigateTimer = investigateDurationPerPoint;
-                    agent.SetDestination(investigatePoints[currentInvestigateIndex]);
-                }
-            }
-        }
-
-    }
     public void TakeBarrelDamage(int damage)
     {
         barrelLives -= damage;
-       // Debug.Log("Boss recebeu dano do barril! Vidas restantes: " + barrelLives);
         if (barrelLives <= 0)
         {
-            // Colocar aq oq acontece qnd o boss morrer
-            //   Debug.Log("Boss derrotado pelos barris!");
             BossMorto2.SetActive(true);
             BossMorto.SetActive(true);
             BossMorto1.SetActive(false);
-    
-            
         }
     }
-
-
 }
