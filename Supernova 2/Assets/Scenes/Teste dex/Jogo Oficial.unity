@@ -259017,7 +259017,7 @@ MonoBehaviour:
   toggleKey: 101
   PlayerNoTrigger: 0
   PuzzleAberto: 0
-  playerShooting: {fileID: 0}
+  playerShooting: {fileID: 1712500685}
 --- !u!65 &1229974510
 BoxCollider:
   m_ObjectHideFlags: 0
