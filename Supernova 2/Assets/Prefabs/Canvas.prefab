@@ -2625,7 +2625,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &7311004149157424674
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8914,6 +8914,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryUI: {fileID: 4174880620435752278}
+  playerShooting: {fileID: 0}
 --- !u!114 &8716336184734872421
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11644,6 +11645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canPause: 1
   menuPausa: {fileID: 1844161092190701058}
+  playerShooting: {fileID: 0}
 --- !u!1 &8621961475111088412
 GameObject:
   m_ObjectHideFlags: 0
