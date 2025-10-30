@@ -865,7 +865,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 25064fa43586e924fae4b53cd86d68cc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 19669a74f691cc34f81488b069a1d4cd, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1244,7 +1244,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8766154695231333809}
   m_Layer: 5
-  m_Name: "Dialogo P\xF3s boss Figth"
+  m_Name: Dialogo Pos Boss Battle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1277,9 +1277,6 @@ RectTransform:
   - {fileID: 447458651258648865}
   - {fileID: 7464703912404858800}
   - {fileID: 742814946391035980}
-  - {fileID: 4882575776566144524}
-  - {fileID: 4533746718836366889}
-  - {fileID: 2201424635100473662}
   m_Father: {fileID: 8186687979864552894}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2137,7 +2134,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4187516893288346801}
   m_Layer: 5
-  m_Name: "Capit\xE3o 2"
+  m_Name: Dialogo Pos Boss Battle 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3513,42 +3510,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: -0.000044330955}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &1484256457818412281
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4533746718836366889}
-  m_Layer: 5
-  m_Name: "Capit\xE3o 17"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &4533746718836366889
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1484256457818412281}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 2415014520414940198}
-  m_Father: {fileID: 8766154695231333809}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000061035156}
-  m_SizeDelta: {x: -0.00012207, y: 0.42999268}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1551876437891605883
 GameObject:
   m_ObjectHideFlags: 0
@@ -4206,7 +4167,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ff2d8c3c918a16146b7af22ab51a0836, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 03e25b1110e24134a89645a4d2de5318, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5189,7 +5150,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 74d0a696a756c114abf3378731a617a1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d0e249da13f499b46b33c281a220f47c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -5629,7 +5590,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5956620013707006686}
   m_Layer: 5
-  m_Name: "Capit\xE3o 1"
+  m_Name: Dialogo Pos Boss Battle 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6307,7 +6268,7 @@ GameObject:
   m_Component:
   - component: {fileID: 447458651258648865}
   m_Layer: 5
-  m_Name: "Capit\xE3o 13"
+  m_Name: Dialogo Pos Boss Battle 13
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6398,7 +6359,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4b24e3163e7ec7742b3bca6ab989ecb6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7729ffc67df98314babd9762397c0b0b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6418,7 +6379,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7464703912404858800}
   m_Layer: 5
-  m_Name: "Capit\xE3o 14"
+  m_Name: Dialogo Pos Boss Battle 14
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7484,7 +7445,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5389202796121964514}
   m_Layer: 5
-  m_Name: "Capit\xE3o 10"
+  m_Name: Dialogo Pos Boss Battle 10
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7520,7 +7481,7 @@ GameObject:
   m_Component:
   - component: {fileID: 70019276764672229}
   m_Layer: 5
-  m_Name: "Dialogo capit\xE3o"
+  m_Name: Dialogo Capitas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7704,7 +7665,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 83759d43c7e508149b9cb51be1d911cd, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 603b175cfc0c018478d8fdc9f47a974a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8156,7 +8117,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 261c7005c25e8504e97fa0b36c23ac63, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 2bc832011091e034693d67726597a5db, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8231,7 +8192,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 50cfa46466159a74483dc26372f9eb1c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c49b064c79ec9144293710ec471a0fc6, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8591,7 +8552,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2234345a8a895cf43b67d5efd85f01d6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d6a29cfdbdbff594bb63d4a968d122f4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -8908,7 +8869,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8240602690362209528}
   m_Layer: 5
-  m_Name: "Capit\xE3o 11"
+  m_Name: Dialogo Pos Boss Battle 11
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9373,7 +9334,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2761680622333996422}
   m_Layer: 5
-  m_Name: "Capit\xE3o 12"
+  m_Name: Dialogo Pos Boss Battle 12
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9912,7 +9873,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7874012674578128961}
   m_Layer: 5
-  m_Name: "Dialogo Cart\xE3o Ato 3"
+  m_Name: Dialogo Cartao Ato 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -10209,7 +10170,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6479152861745673408}
   m_Layer: 5
-  m_Name: "Capit\xE3o 6"
+  m_Name: Dialogo Pos Boss Battle 6
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11163,7 +11124,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5032708482831193163}
   m_Layer: 5
-  m_Name: "Capit\xE3o 7"
+  m_Name: Dialogo Pos Boss Battle 7
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -11398,7 +11359,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ac4fcb2821f3f35408dc4f1ec9ab263d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f60e7550790391c48aef520695d5296b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13554,7 +13515,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8496874774249787589}
   m_Layer: 5
-  m_Name: "Dialogo Ajuda Capt\xE3o"
+  m_Name: Dialogo Ajuda Capitas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -14630,7 +14591,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 589207a25bade3f42a81db8c5bf1b0a0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6393bad72579f46499c6fb0089e45832, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15490,7 +15451,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5ae933452357f434bb2f6e2591a7c6ba, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8fa0171006213114a863c6fe690c45c7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15565,7 +15526,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 04289ce825f7824469abd451ebdafdfb, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b0e002aa7f57c32488ff92800d877002, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15640,7 +15601,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8642e13f4943cfd40b6f89ec3b5c321c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f3de3842cd09fa24b888f38d07950208, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -16403,7 +16364,7 @@ GameObject:
   m_Component:
   - component: {fileID: 742814946391035980}
   m_Layer: 5
-  m_Name: "Capit\xE3o 15"
+  m_Name: Dialogo Pos Boss Battle 15
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16697,81 +16658,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &6256027130204441402
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 554312503876269400}
-  - component: {fileID: 5219668924854680599}
-  - component: {fileID: 7108257620935623516}
-  m_Layer: 5
-  m_Name: Image (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &554312503876269400
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6256027130204441402}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2201424635100473662}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.25556242, y: 0}
-  m_AnchorMax: {x: 0.74600005, y: 0.30481073}
-  m_AnchoredPosition: {x: 2.5075684, y: -0.29663086}
-  m_SizeDelta: {x: 4.1870117, y: -0.32348633}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &5219668924854680599
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6256027130204441402}
-  m_CullTransparentMesh: 1
---- !u!114 &7108257620935623516
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6256027130204441402}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ba112d1da062f3246afb5d9148526128, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &6268512512324859880
 GameObject:
   m_ObjectHideFlags: 0
@@ -17003,7 +16889,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 16b09bd52fb1d6142a51ef060fa28b74, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1795b4a11af2f2c4abd127f7ffafad79, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -17695,7 +17581,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1315155306805649431}
   m_Layer: 5
-  m_Name: "Capit\xE3o 9"
+  m_Name: Dialogo Pos Boss Battle 9
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -18595,7 +18481,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3231444222670855154}
   m_Layer: 5
-  m_Name: "Capit\xE3o 4"
+  m_Name: Dialogo Pos Boss Battle 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20661,81 +20547,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nomeDaCena: Inicio azul
---- !u!1 &7496868036303521638
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2415014520414940198}
-  - component: {fileID: 127163854482636979}
-  - component: {fileID: 3017064437284078111}
-  m_Layer: 5
-  m_Name: Image (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &2415014520414940198
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7496868036303521638}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4533746718836366889}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.25556242, y: 0}
-  m_AnchorMax: {x: 0.74600005, y: 0.30481073}
-  m_AnchoredPosition: {x: 2.5075684, y: -0.29663086}
-  m_SizeDelta: {x: 4.1870117, y: -0.32348633}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &127163854482636979
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7496868036303521638}
-  m_CullTransparentMesh: 1
---- !u!114 &3017064437284078111
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7496868036303521638}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 945fe607ddc8e3142b3e37cef7f56fed, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
 --- !u!1 &7558509882545766562
 GameObject:
   m_ObjectHideFlags: 0
@@ -21960,7 +21771,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1443236420214402289}
   m_Layer: 5
-  m_Name: "Dialogo Cadaver capit\xE3o"
+  m_Name: Dialogo Cadaver Capitas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22160,7 +21971,7 @@ GameObject:
   m_Component:
   - component: {fileID: 12363427956106956}
   m_Layer: 5
-  m_Name: "Capit\xE3o 5"
+  m_Name: Dialogo Pos Boss Battle 5
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22310,81 +22121,6 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8392036620368458704}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: c616619e32ead6c44b588ebade734045, type: 3}
-  m_Type: 0
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!1 &8442693679565944103
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4990629751599957883}
-  - component: {fileID: 7771327031528555283}
-  - component: {fileID: 2020196458359674460}
-  m_Layer: 5
-  m_Name: Image (1)
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &4990629751599957883
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8442693679565944103}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4882575776566144524}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.25556242, y: 0}
-  m_AnchorMax: {x: 0.74600005, y: 0.30481073}
-  m_AnchoredPosition: {x: -1.5002441, y: 2.4799805}
-  m_SizeDelta: {x: 8.124268, y: -1.3157043}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!222 &7771327031528555283
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8442693679565944103}
-  m_CullTransparentMesh: 1
---- !u!114 &2020196458359674460
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8442693679565944103}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
@@ -22663,7 +22399,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ede28419293537c4d81b02e659a7a383, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 740d665c24bae874f9497e774d01021b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -23746,7 +23482,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4183628341913830119}
   m_Layer: 5
-  m_Name: "Capit\xE3o 8"
+  m_Name: Dialogo Pos Boss Battle 8
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -23978,7 +23714,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5079780142793977411}
   m_Layer: 5
-  m_Name: "Capit\xE3o 3"
+  m_Name: Dialogo Pos Boss Battle 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24471,42 +24207,6 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!1 &9022660609565152967
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4882575776566144524}
-  m_Layer: 5
-  m_Name: "Capit\xE3o 16"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &4882575776566144524
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9022660609565152967}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 4990629751599957883}
-  m_Father: {fileID: 8766154695231333809}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.11260986}
-  m_SizeDelta: {x: 0, y: 0.22485}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &9085120807716514267
 GameObject:
   m_ObjectHideFlags: 0
@@ -24617,42 +24317,6 @@ RectTransform:
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0.11242676}
   m_SizeDelta: {x: 0, y: 0.22485}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!1 &9197192436318525973
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2201424635100473662}
-  m_Layer: 5
-  m_Name: "Capit\xE3o 18"
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &2201424635100473662
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9197192436318525973}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 554312503876269400}
-  m_Father: {fileID: 8766154695231333809}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0.000061035156}
-  m_SizeDelta: {x: -0.00012207, y: 0.42999268}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &9206948257481451358
 GameObject:
