@@ -217,7 +217,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e89d3b6226f51b446bd5828fa337620a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0d2c92449e5fc1a4284b5b55c79c63fc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -576,7 +576,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f741904f7a416ec47994a7b1cb4e8951, type: 3}
+  m_Sprite: {fileID: 21300000, guid: fd32a7deafbaaa345b00077c71cbfcbe, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2489,6 +2489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   canPause: 0
   menuPausa: {fileID: 0}
+  playerShooting: {fileID: 0}
 --- !u!4 &1528843673
 Transform:
   m_ObjectHideFlags: 0
