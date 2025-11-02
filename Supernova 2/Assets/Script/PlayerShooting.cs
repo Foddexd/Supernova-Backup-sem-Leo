@@ -26,6 +26,11 @@ public class PlayerShooting : MonoBehaviour
     public bool upgradeCartuchoGrande = false; // Upgrade para cartucho de 30 balas
     public bool upgradeTiroDuplo = false; // Upgrade para atirar dois tiros
 
+    //itens que vão se desativar com o tiro 
+    public AudioSource audioSource;  // Referência ao AudioSource
+    public Light muzzleLight;        // Referência à luz
+    public float lightDuration = 0.1f;  // Duração do flash em segundos (ajuste para mais rápido/menos)
+
     void Start()
     {
         ammoManager = GetComponent<AmmoManager>()
@@ -58,8 +63,7 @@ public class PlayerShooting : MonoBehaviour
         {
             Shoot();
             balasNoCartucho--;
-            Som.SetActive(true);
-            Luz.SetActive(true);
+            PlayShootEffects();  // Chama os efeitos de som e luz aqui
         }
         else if (ammoManager != null && ammoManager.GetCartuchos() > 0)
         {
@@ -68,6 +72,29 @@ public class PlayerShooting : MonoBehaviour
         else
         {
             Debug.Log("Acabaram todas as balas e cartuchos!");
+        }
+    }
+    // Nova função para tocar som e piscar luz (evita poluição)
+    void PlayShootEffects()
+    {
+        // Toca o som uma vez (sem sobreposição)
+        if (audioSource != null && audioSource.clip != null)
+        {
+            audioSource.PlayOneShot(audioSource.clip);  // Toca o clip atribuído no AudioSource
+        }
+        // Ativa a luz e desativa após lightDuration segundos
+        if (muzzleLight != null)
+        {
+            muzzleLight.enabled = true;
+            Invoke("DisableLight", lightDuration);  // Chama DisableLight automaticamente
+        }
+    }
+
+    void DisableLight()
+    {
+        if (muzzleLight != null)
+        {
+            muzzleLight.enabled = false;
         }
     }
 
