@@ -1,16 +1,14 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+
 public class Ler : MonoBehaviour
 {
     private bool PlayerNoTrigger;
     private bool estaLendo = false;
     public GameObject FichaParaLer;
-    public GameObject botaoInteracao; 
-
+    public GameObject botaoInteracao;
     public GameObject texto;
-
-    
 
     private void Start()
     {
@@ -23,9 +21,12 @@ public class Ler : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayerNoTrigger = true;
-            texto.SetActive(true);
-            if (botaoInteracao != null)
-                botaoInteracao.SetActive(true); 
+            if (!estaLendo)
+            {
+                texto.SetActive(true);
+                if (botaoInteracao != null)
+                    botaoInteracao.SetActive(true);
+            }
         }
     }
 
@@ -36,10 +37,10 @@ public class Ler : MonoBehaviour
             PlayerNoTrigger = false;
             texto.SetActive(false);
             if (estaLendo)
-                AlternarLeitura(); 
+                AlternarLeitura();
 
             if (botaoInteracao != null)
-                botaoInteracao.SetActive(false); 
+                botaoInteracao.SetActive(false);
         }
     }
 
@@ -51,11 +52,29 @@ public class Ler : MonoBehaviour
         }
     }
 
-    
     public void AlternarLeitura()
     {
         estaLendo = !estaLendo;
-        FichaParaLer.SetActive(estaLendo);
-        Time.timeScale = estaLendo ? 0 : 1;
+        if (estaLendo)
+        {
+            
+            FichaParaLer.SetActive(true);
+            Time.timeScale = 0;
+            texto.SetActive(false);
+            if (botaoInteracao != null)
+                botaoInteracao.SetActive(false);
+        }
+        else
+        {
+            
+            FichaParaLer.SetActive(false);
+            Time.timeScale = 1;
+            if (PlayerNoTrigger)
+            {
+                texto.SetActive(true);
+                if (botaoInteracao != null)
+                    botaoInteracao.SetActive(true);
+            }
+        }
     }
 }
