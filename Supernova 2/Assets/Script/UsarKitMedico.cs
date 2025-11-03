@@ -15,7 +15,7 @@ public class UsarKitMedico : MonoBehaviour
 
     void Update()
     {
-        if (kitNoInventario.activeSelf && Input.GetKeyDown(KeyCode.V))
+        if (kitNoInventario.activeSelf && Input.GetKeyDown(KeyCode.C))
         {
             UsarKit();
         }

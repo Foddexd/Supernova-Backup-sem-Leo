@@ -53,11 +53,11 @@ public class Movimento : MonoBehaviour
 
         isSprinting = Input.GetKey(KeyCode.LeftShift);
 
-        if (Input.GetKeyDown(KeyCode.C) && !isCrouching)
+        if (Input.GetKeyDown(KeyCode.LeftControl) && !isCrouching)
         {
             StartCoroutine(CrouchStand());
         }
-        else if (Input.GetKeyDown(KeyCode.C) && isCrouching)
+        else if (Input.GetKeyDown(KeyCode.LeftControl) && isCrouching)
         {
             StartCoroutine(StandUp());
         }
