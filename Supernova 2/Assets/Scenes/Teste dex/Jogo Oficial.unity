@@ -113794,7 +113794,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7258019352950284192, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
       propertyPath: m_Speed
-      value: 3.1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7258019352950284192, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
       propertyPath: m_Height
@@ -255518,7 +255518,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7258019352950284192, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
       propertyPath: m_Speed
-      value: 4
+      value: 4.5
       objectReference: {fileID: 0}
     - target: {fileID: 7258019352950284192, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
       propertyPath: m_Height
@@ -327421,11 +327421,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6556531090726864099, guid: 1e8242b742b0ef94481016e3a1089f0e, type: 3}
       propertyPath: normalSpeed
-      value: 3
+      value: 3.5
       objectReference: {fileID: 0}
     - target: {fileID: 6556531090726864099, guid: 1e8242b742b0ef94481016e3a1089f0e, type: 3}
       propertyPath: sprintSpeed
-      value: 10
+      value: 4.2
       objectReference: {fileID: 0}
     - target: {fileID: 6556531090726864099, guid: 1e8242b742b0ef94481016e3a1089f0e, type: 3}
       propertyPath: crouchHeight
