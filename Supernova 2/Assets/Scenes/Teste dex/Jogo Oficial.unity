@@ -327368,7 +327368,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2495199812995241722, guid: 1e8242b742b0ef94481016e3a1089f0e, type: 3}
       propertyPath: temArma
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2495199812995241722, guid: 1e8242b742b0ef94481016e3a1089f0e, type: 3}
       propertyPath: m_Enabled
