@@ -20,10 +20,10 @@ public class ExplosiveBarrel : MonoBehaviour
     {
         exploded = true;
 
-        // Instanciar efeito de explosão (opcional)
+        // Instanciar efeito de explosï¿½o (opcional)
         if (explosionEffect != null)
         {
-            Instantiate(explosionEffect, transform.position, Quaternion.identity);
+          explosionEffect.SetActive(true);
         }
 
         
