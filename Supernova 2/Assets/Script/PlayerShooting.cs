@@ -180,9 +180,14 @@ public class PlayerShooting : MonoBehaviour
         temArma = true;
         balasNoCartucho = maxBalasPorCartucho;
         Debug.Log("Arma equipada! Balas: " + balasNoCartucho);
-    }
 
-    // Novos métodos para ativar upgrades (chame esses de um script de coleta)
+        // 🔧 Garantir que o player continue na layer correta
+        gameObject.layer = LayerMask.NameToLayer("Player");
+
+        // 🔧 E garantir que todos os filhos da arma estejam na mesma layer
+        foreach (Transform child in transform)
+            child.gameObject.layer = LayerMask.NameToLayer("Player");
+    }
     public void AtivarUpgradeCartuchoGrande()
     {
         upgradeCartuchoGrande = true;
