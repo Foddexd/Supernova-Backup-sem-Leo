@@ -46,6 +46,8 @@ public class EnemyAi : MonoBehaviour
     public GameObject BossMorto;
     public GameObject BossMorto1;
     public GameObject BossMorto2;
+    public GameObject BossMorto3;
+    public GameObject BossMorto4;
 
     private void Awake()
     {
@@ -245,6 +247,8 @@ public class EnemyAi : MonoBehaviour
             BossMorto2.SetActive(true);
             BossMorto.SetActive(true);
             BossMorto1.SetActive(false);
+            BossMorto3.SetActive(false);
+            BossMorto4.SetActive(true);
         }
     }
 }
