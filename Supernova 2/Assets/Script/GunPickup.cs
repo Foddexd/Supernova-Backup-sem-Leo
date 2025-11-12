@@ -10,6 +10,7 @@ public class GunPickup : MonoBehaviour
     public GameObject Porta1;
     public GameObject Porta2;
     public GameObject Botao;
+    public GameObject DialogoArma;
 
     public GameObject texto;
 
@@ -46,6 +47,7 @@ public class GunPickup : MonoBehaviour
         Porta1.SetActive(false);
         Porta2.SetActive(false);
         Botao.SetActive(true);
+        DialogoArma.SetActive(true);
 
     }
 
