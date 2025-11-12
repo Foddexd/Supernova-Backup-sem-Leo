@@ -10,6 +10,9 @@ public class Ler : MonoBehaviour
     public GameObject botaoInteracao;
     public GameObject texto;
 
+    // Variável estática para rastrear se alguma nota está sendo lida
+    public static bool IsReadingAnyNote = false;
+
     private void Start()
     {
         if (botaoInteracao != null)
@@ -57,7 +60,7 @@ public class Ler : MonoBehaviour
         estaLendo = !estaLendo;
         if (estaLendo)
         {
-            
+            IsReadingAnyNote = true; // Marca que uma nota está sendo lida
             FichaParaLer.SetActive(true);
             Time.timeScale = 0;
             texto.SetActive(false);
@@ -66,7 +69,7 @@ public class Ler : MonoBehaviour
         }
         else
         {
-            
+            IsReadingAnyNote = false; // Marca que nenhuma nota está sendo lida (assumindo que apenas uma pode ser lida por vez)
             FichaParaLer.SetActive(false);
             Time.timeScale = 1;
             if (PlayerNoTrigger)
