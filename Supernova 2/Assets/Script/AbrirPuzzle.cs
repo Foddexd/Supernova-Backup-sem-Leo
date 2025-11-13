@@ -4,7 +4,7 @@ public class AbrirPuzzle : MonoBehaviour
 {
     [Header("Referências do Puzzle")]
     public GameObject Puzzle;
-    public GameObject TextoInteração;
+    public GameObject TextoInteracao;
     public KeyCode toggleKey = KeyCode.E;
     public PlayerShooting playerShooting;
 
@@ -21,8 +21,8 @@ public class AbrirPuzzle : MonoBehaviour
     [Header("Controle de Estado")]
     public bool puzzleResolvido = false;
 
-    private bool PlayerNoTrigger = false;
-    private bool PuzzleAberto = false;
+    private bool playerNoTrigger = false;
+    private bool puzzleAberto = false;
     private bool firstPuzzleOpened = false;
     private bool timerActive = false;
     private float timer = 0f;
@@ -31,7 +31,6 @@ public class AbrirPuzzle : MonoBehaviour
     private bool dica2Ativa = false;
     private bool dica3Ativa = false;
 
-    // ? novas flags — para não repetir dicas
     private bool dica1Mostrada = false;
     private bool dica2Mostrada = false;
     private bool dica3Mostrada = false;
@@ -40,8 +39,9 @@ public class AbrirPuzzle : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlayerNoTrigger = true;
-            TextoInteração.SetActive(true);
+            playerNoTrigger = true;
+            if (TextoInteracao != null)
+                TextoInteracao.SetActive(true);
         }
     }
 
@@ -49,31 +49,32 @@ public class AbrirPuzzle : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlayerNoTrigger = false;
-            TextoInteração.SetActive(false);
+            playerNoTrigger = false;
+            if (TextoInteracao != null)
+                TextoInteracao.SetActive(false);
         }
     }
 
     private void Update()
     {
-        // Abre/fecha puzzle
-        if (PlayerNoTrigger && Input.GetKeyDown(toggleKey))
+        // Abre ou fecha o puzzle
+        if (playerNoTrigger && Input.GetKeyDown(toggleKey))
         {
-            OpenPuzzle(!PuzzleAberto);
+            OpenPuzzle(!puzzleAberto);
         }
 
-        // Controle do timer e dicas
+        // Controle do timer e exibição das dicas
         if (!puzzleResolvido)
         {
-            // Timer ativo, jogo não pausado, puzzle fechado e nenhuma dica aberta
-            if (timerActive && !IsGamePaused() && !PuzzleAberto && !dica1Ativa && !dica2Ativa && !dica3Ativa)
+            if (timerActive && !IsGamePaused() && !puzzleAberto &&
+                !dica1Ativa && !dica2Ativa && !dica3Ativa)
             {
                 timer += Time.unscaledDeltaTime;
 
                 if (timer >= tempoDica1 && !dica1Mostrada)
                 {
                     MostrarDica(dica1, ref dica1Ativa);
-                    dica1Mostrada = true; // ? marca que a dica já foi exibida
+                    dica1Mostrada = true;
                 }
                 else if (timer >= tempoDica2 && !dica2Mostrada)
                 {
@@ -87,7 +88,7 @@ public class AbrirPuzzle : MonoBehaviour
                 }
             }
 
-            // Fecha a dica com botão direito
+            // Fecha a dica com o botão direito do mouse
             if (Input.GetMouseButtonDown(1))
             {
                 if (dica1Ativa)
@@ -102,41 +103,49 @@ public class AbrirPuzzle : MonoBehaviour
 
     private void MostrarDica(GameObject dica, ref bool dicaAtiva)
     {
-        dica.SetActive(true);
-        dicaAtiva = true;
-        timerActive = false;
+        if (dica != null)
+        {
+            dica.SetActive(true);
+            dicaAtiva = true;
+            timerActive = false;
 
-        if (playerShooting != null)
-            playerShooting.enabled = false;
+            if (playerShooting != null)
+                playerShooting.enabled = false;
 
-        MenuManager.instance.FreezeGame(true);
+            MenuManager.instance.FreezeGame(true);
+        }
     }
 
     private void FecharDica(GameObject dica, ref bool dicaAtiva)
     {
-        dica.SetActive(false);
-        dicaAtiva = false;
+        if (dica != null)
+        {
+            dica.SetActive(false);
+            dicaAtiva = false;
 
-        if (playerShooting != null)
-            playerShooting.enabled = true;
+            if (playerShooting != null)
+                playerShooting.enabled = true;
 
-        MenuManager.instance.FreezeGame(false);
-        timerActive = true;
+            MenuManager.instance.FreezeGame(false);
+            timerActive = true;
+        }
     }
 
     public void OpenPuzzle(bool abrir)
     {
-        PuzzleAberto = abrir;
-        Puzzle.SetActive(PuzzleAberto);
+        puzzleAberto = abrir;
+
+        if (Puzzle != null)
+            Puzzle.SetActive(puzzleAberto);
 
         if (playerShooting != null)
-            playerShooting.enabled = !PuzzleAberto;
+            playerShooting.enabled = !puzzleAberto;
 
         if (!MenuManager.instance.IsMenuOpen() &&
             !InventoryToggle.instance.IsInventoryOpen() &&
             !DialogueManager.instance.IsFreezingDialogueOpen())
         {
-            MenuManager.instance.FreezeGame(PuzzleAberto);
+            MenuManager.instance.FreezeGame(puzzleAberto);
         }
 
         // Primeira vez que o puzzle é aberto
@@ -145,13 +154,13 @@ public class AbrirPuzzle : MonoBehaviour
             firstPuzzleOpened = true;
         }
 
-        // Quando o puzzle é fechado pela primeira vez, inicia o timer
+        // Inicia o timer quando o puzzle é fechado pela primeira vez
         if (!abrir && firstPuzzleOpened && !puzzleResolvido)
         {
             timerActive = true;
         }
 
-        // Se abrir o puzzle novamente, pausa o timer
+        // Pausa o timer quando o puzzle é reaberto
         if (abrir)
         {
             timerActive = false;
