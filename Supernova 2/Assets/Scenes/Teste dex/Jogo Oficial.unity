@@ -34599,7 +34599,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: f6288f6eb0d8a1a42b19bc4081165128, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: f40a9e229e708ac43b45a341040a8f49, type: 2}
+      objectReference: {fileID: 2100000, guid: 526d29001f3cffd429f2c997ffc52ad6, type: 2}
     - target: {fileID: -7511558181221131132, guid: f6288f6eb0d8a1a42b19bc4081165128, type: 3}
       propertyPath: m_Materials.Array.data[1]
       value: 
@@ -282381,7 +282381,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Puzzle: {fileID: 1955948173}
-  "TextoIntera\xE7\xE3o": {fileID: 229969159}
+  TextoInteracao: {fileID: 0}
   toggleKey: 101
   playerShooting: {fileID: 1712500685}
   dica1: {fileID: 1038265815}
