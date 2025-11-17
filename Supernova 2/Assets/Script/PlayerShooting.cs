@@ -214,7 +214,7 @@ public class PlayerShooting : MonoBehaviour
 
         if (cartuchosTexto != null && ammoManager != null)
         {
-            cartuchosTexto.text = "Cartuchos: " + ammoManager.GetCartuchos();
+            cartuchosTexto.text = "Pentes: " + ammoManager.GetCartuchos();
         }
     }
 }
