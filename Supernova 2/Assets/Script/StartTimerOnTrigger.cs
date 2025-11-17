@@ -6,6 +6,7 @@ public class StartDialogOnTrigger : MonoBehaviour
     public GameObject item1;
     public GameObject item2;
     public GameObject item3;
+    public GameObject CartaoAto3;
 
     public bool autoFreeze = false;
 
@@ -74,6 +75,8 @@ public class StartDialogOnTrigger : MonoBehaviour
             if (item1) item1.SetActive(false);
             if (item2) item2.SetActive(false);
             if (item3) item3.SetActive(true);
+            if (CartaoAto3) CartaoAto3.SetActive(false);
+
         }
     }
 }
