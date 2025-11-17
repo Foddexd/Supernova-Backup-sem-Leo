@@ -15122,6 +15122,11 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 300, y: 12.627594, z: 300}
   m_Center: {x: -150, y: -5.793335, z: 150.00012}
+--- !u!1 &60051306 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1536602058777178262, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
+  m_PrefabInstance: {fileID: 1827531663756463017}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &60876911 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 28e5af7ac33950e4aa4b7df8a8c77f22, type: 3}
@@ -276473,7 +276478,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dialogos:
-  - {fileID: 136894430}
+  - {fileID: 60051306}
   item1: {fileID: 391897057}
   item2: {fileID: 1713047469}
   item3: {fileID: 1568514374}
