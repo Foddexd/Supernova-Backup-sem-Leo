@@ -48,7 +48,7 @@ public class GunPickup : MonoBehaviour
         Porta2.SetActive(false);
         Botao.SetActive(true);
         DialogoArma.SetActive(true);
-
+        texto.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)

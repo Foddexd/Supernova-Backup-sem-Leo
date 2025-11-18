@@ -50,10 +50,15 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
     {
+        
+        if (Ler.IsReadingAnyNote)
+            return;
+
 #if !UNITY_ANDROID && !UNITY_IOS
         if (temArma && Input.GetMouseButtonDown(0)) TentarAtirar();
         if (temArma && Input.GetKeyDown(KeyCode.R)) Recarregar();
 #endif
+
         AtualizarUI();
     }
 

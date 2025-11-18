@@ -1,6 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
 
 public class Ler : MonoBehaviour
 {
@@ -13,6 +11,9 @@ public class Ler : MonoBehaviour
     // Variável estática para rastrear se alguma nota está sendo lida
     public static bool IsReadingAnyNote = false;
 
+    // Referência ao PlayerShooting do jogador que entrou no trigger
+    private PlayerShooting playerShootingRef;
+
     private void Start()
     {
         if (botaoInteracao != null)
@@ -24,6 +25,12 @@ public class Ler : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             PlayerNoTrigger = true;
+
+            // pega referência ao PlayerShooting (se houver)
+            playerShootingRef = other.GetComponent<PlayerShooting>();
+            if (playerShootingRef == null)
+                Debug.LogWarning("Ler: Player entrou, mas não foi encontrado PlayerShooting no objeto 'Player'.");
+
             if (!estaLendo)
             {
                 texto.SetActive(true);
@@ -39,11 +46,16 @@ public class Ler : MonoBehaviour
         {
             PlayerNoTrigger = false;
             texto.SetActive(false);
+
+            // Se estava lendo e saiu do trigger, fechar leitura
             if (estaLendo)
                 AlternarLeitura();
 
             if (botaoInteracao != null)
                 botaoInteracao.SetActive(false);
+
+            // opcional: limpa referência ao sair
+            playerShootingRef = null;
         }
     }
 
@@ -60,23 +72,39 @@ public class Ler : MonoBehaviour
         estaLendo = !estaLendo;
         if (estaLendo)
         {
-            IsReadingAnyNote = true; // Marca que uma nota está sendo lida
+            IsReadingAnyNote = true; // marca que está lendo
             FichaParaLer.SetActive(true);
             Time.timeScale = 0;
             texto.SetActive(false);
-            if (botaoInteracao != null)
-                botaoInteracao.SetActive(false);
+            if (botaoInteracao != null) botaoInteracao.SetActive(false);
+
+            // --- Desativa o script de tiro do jogador (mais confiável que só checar bool)
+            if (playerShootingRef != null)
+            {
+                playerShootingRef.enabled = false;
+                Debug.Log("Ler: PlayerShooting desativado enquanto lê.");
+            }
+            else
+            {
+                Debug.LogWarning("Ler: Não foi possível desativar PlayerShooting — referência nula.");
+            }
         }
         else
         {
-            IsReadingAnyNote = false; // Marca que nenhuma nota está sendo lida (assumindo que apenas uma pode ser lida por vez)
+            IsReadingAnyNote = false; // marca que não está lendo
             FichaParaLer.SetActive(false);
             Time.timeScale = 1;
             if (PlayerNoTrigger)
             {
                 texto.SetActive(true);
-                if (botaoInteracao != null)
-                    botaoInteracao.SetActive(true);
+                if (botaoInteracao != null) botaoInteracao.SetActive(true);
+            }
+
+            // --- Reativa o script de tiro ao fechar a leitura
+            if (playerShootingRef != null)
+            {
+                playerShootingRef.enabled = true;
+                Debug.Log("Ler: PlayerShooting reativado após leitura.");
             }
         }
     }

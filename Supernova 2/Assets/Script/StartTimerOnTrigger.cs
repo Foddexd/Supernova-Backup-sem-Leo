@@ -14,21 +14,13 @@ public class StartDialogOnTrigger : MonoBehaviour
     private bool jaAtivado = false;
     private int indiceAtual = 0;
 
+    // 🔫 Referência ao PlayerShooting do jogador
+    private PlayerShooting playerShootingRef;
+
     private void Start()
     {
         DialogueManager.instance.AddDialogueTrigger(this);
     }
-
-    void Update()
-    {
-        // só reage ao clique se o diálogo estiver ativo
-        if (dialogoAtivo && Input.GetMouseButtonDown(1)) // botão esquerdo do mouse
-        {
-            AvancarDialogo();
-        }
-    }
-
-    public bool IsFreezingAndOpen() => dialogoAtivo && autoFreeze;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -38,14 +30,37 @@ public class StartDialogOnTrigger : MonoBehaviour
             dialogoAtivo = true;
             indiceAtual = 0;
 
+            // pega referência ao script de tiro do player
+            playerShootingRef = other.GetComponent<PlayerShooting>();
+            if (playerShootingRef == null)
+                playerShootingRef = other.GetComponentInChildren<PlayerShooting>();
+
+            // 🔫 DESATIVA O TIRO
+            if (playerShootingRef != null)
+            {
+                playerShootingRef.enabled = false;
+                Debug.Log("StartDialogOnTrigger: PlayerShooting DESATIVADO durante o diálogo.");
+            }
+
             // ativa o primeiro diálogo
             if (dialogos.Length > 0)
                 dialogos[0].SetActive(true);
 
-            if(autoFreeze && !InventoryToggle.instance.IsInventoryOpen() && !MenuManager.instance.IsMenuOpen())
+            // freeze opcional
+            if (autoFreeze &&
+                !InventoryToggle.instance.IsInventoryOpen() &&
+                !MenuManager.instance.IsMenuOpen())
             {
                 MenuManager.instance.FreezeGame(true);
             }
+        }
+    }
+
+    void Update()
+    {
+        if (dialogoAtivo && Input.GetMouseButtonDown(1))
+        {
+            AvancarDialogo();
         }
     }
 
@@ -64,19 +79,30 @@ public class StartDialogOnTrigger : MonoBehaviour
         }
         else
         {
-            // terminou todos os diálogos
+            // terminou o diálogo
             dialogoAtivo = false;
 
-            if (autoFreeze && !InventoryToggle.instance.IsInventoryOpen() && !MenuManager.instance.IsMenuOpen())
+            if (autoFreeze &&
+                !InventoryToggle.instance.IsInventoryOpen() &&
+                !MenuManager.instance.IsMenuOpen())
             {
                 MenuManager.instance.FreezeGame(false);
             }
 
+            // itens
             if (item1) item1.SetActive(false);
             if (item2) item2.SetActive(false);
             if (item3) item3.SetActive(true);
             if (CartaoAto3) CartaoAto3.SetActive(false);
 
+            // 🔫 REATIVA O TIRO AO TERMINAR
+            if (playerShootingRef != null)
+            {
+                playerShootingRef.enabled = true;
+                Debug.Log("StartDialogOnTrigger: PlayerShooting REATIVADO após diálogo.");
+            }
         }
     }
+
+    public bool IsFreezingAndOpen() => dialogoAtivo && autoFreeze;
 }
