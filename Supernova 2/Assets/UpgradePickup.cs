@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI; // Adicione isso se estiver usando UI Text
 
@@ -7,9 +9,15 @@ public class UpgradePickup : MonoBehaviour
     public UpgradeType tipoUpgrade;
 
     // Referências para os objetos de UI
-    public GameObject promptObject; // Objeto "aperte E para pegar" (ex: um TextMeshPro ou UI Text)
-    public GameObject pickupMessage; // Objeto "voce pegou tal item" (ex: um TextMeshPro ou UI Text)
+    public GameObject AperteE; // Objeto "aperte E para pegar" 
+    public GameObject ImagemCanvas; // Imagem no canvas
     public Text pickupText; // Componente Text do pickupMessage para personalizar o texto (opcional, se for UI Text)
+
+    // Variável pública para configurar o tempo de exibição da mensagem (em segundos)
+    public float tempoExibicao = 2f;
+
+    // Novo: Referência ao objeto visual do item (ex: o MeshRenderer ou o GameObject que representa o item no mundo)
+    public GameObject itemVisual;
 
     private bool playerInRange = false; // Flag para saber se o player está na área
 
@@ -18,9 +26,9 @@ public class UpgradePickup : MonoBehaviour
         if (other.CompareTag("Player")) // Assuma que o player tem a tag "Player"
         {
             playerInRange = true;
-            if (promptObject != null)
+            if (AperteE != null)
             {
-                promptObject.SetActive(true); // Ativa o prompt "aperte E para pegar"
+                AperteE.SetActive(true); // Ativa o prompt "aperte E para pegar"
             }
         }
     }
@@ -30,9 +38,9 @@ public class UpgradePickup : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             playerInRange = false;
-            if (promptObject != null)
+            if (AperteE != null)
             {
-                promptObject.SetActive(false); // Desativa o prompt ao sair da área
+                AperteE.SetActive(false); // Desativa o prompt ao sair da área
             }
         }
     }
@@ -54,23 +62,47 @@ public class UpgradePickup : MonoBehaviour
                     playerShooting.AtivarUpgradeTiroDuplo();
                 }
 
-                // Mostrar mensagem de pickup
-                if (pickupMessage != null)
-                {
-                    pickupMessage.SetActive(true);
-                    if (pickupText != null)
-                    {
-                        pickupText.text = "Você pegou " + tipoUpgrade.ToString(); // Personaliza o texto
-                    }
-                }
-
-                // Desativar o prompt e destruir o objeto
-                if (promptObject != null)
-                {
-                    promptObject.SetActive(false);
-                }
-                Destroy(gameObject); // Remove o item após coleta
+                // Chama a coroutine para mostrar a mensagem por tempoExibicao segundos e depois destruir
+                StartCoroutine(MostrarMensagemPickup());
             }
         }
+    }
+
+    // Coroutine para mostrar a mensagem de pickup por tempoExibicao segundos e depois destruir o objeto
+    private IEnumerator MostrarMensagemPickup()
+    {
+        // Novo: Desativa o objeto visual do item imediatamente (faz o item "sumir")
+        if (itemVisual != null)
+        {
+            itemVisual.SetActive(false);
+        }
+
+        // Ativa a mensagem de pickup
+        if (ImagemCanvas != null)
+        {
+            ImagemCanvas.SetActive(true);
+            if (pickupText != null)
+            {
+                pickupText.text = "Você pegou " + tipoUpgrade.ToString(); // Personaliza o texto
+            }
+        }
+
+        // Desativa o prompt
+        if (AperteE != null)
+        {
+            AperteE.SetActive(false);
+        }
+
+        // Espera pelo tempo configurado
+        yield return new WaitForSeconds(tempoExibicao);
+
+        // Desativa a mensagem
+        if (ImagemCanvas != null)
+        {
+            ImagemCanvas.SetActive(false);
+        }
+
+        // Destrói o objeto após a mensagem
+        Destroy(gameObject);
     }
 }
