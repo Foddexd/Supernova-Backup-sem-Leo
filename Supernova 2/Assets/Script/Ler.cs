@@ -5,8 +5,8 @@ public class Ler : MonoBehaviour
     private bool PlayerNoTrigger;
     private bool estaLendo = false;
     public GameObject FichaParaLer;
-    public GameObject botaoInteracao;
-    public GameObject texto;
+    public GameObject botaoInteracao; // Aperte E para interagir
+    public GameObject texto; //Voce coletou 
 
     // Variável estática para rastrear se alguma nota está sendo lida
     public static bool IsReadingAnyNote = false;
