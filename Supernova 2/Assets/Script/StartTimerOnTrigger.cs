@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement; // Adicionado para carregar cenas
 
 public class StartDialogOnTrigger : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class StartDialogOnTrigger : MonoBehaviour
     public GameObject CartaoAto3;
 
     public bool autoFreeze = false;
+
+    // Nova variável opcional para a cena a ser carregada após o último diálogo
+    public string sceneToLoad = ""; // Deixe vazio para não carregar nenhuma cena (para outros diálogos)
 
     private bool dialogoAtivo = false;
     private bool jaAtivado = false;
@@ -100,6 +104,12 @@ public class StartDialogOnTrigger : MonoBehaviour
             {
                 playerShootingRef.enabled = true;
                 Debug.Log("StartDialogOnTrigger: PlayerShooting REATIVADO após diálogo.");
+            }
+
+            // Nova funcionalidade: carrega a cena se especificada (após o último clique direito)
+            if (!string.IsNullOrEmpty(sceneToLoad))
+            {
+                SceneManager.LoadScene(sceneToLoad);
             }
         }
     }
