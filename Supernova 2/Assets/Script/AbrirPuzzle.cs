@@ -52,6 +52,9 @@ public class AbrirPuzzle : MonoBehaviour
             playerNoTrigger = false;
             if (TextoInteracao != null)
                 TextoInteracao.SetActive(false);
+            if(Puzzle != null)
+                Puzzle.SetActive(false);
+            //ainda preciso fazer algo que conte como um tick , oq esta acontecendo é : eu preciso clicar mais uma vez o E fora para funcionar normalmente quando acontece o bug com ESQ
         }
     }
 
