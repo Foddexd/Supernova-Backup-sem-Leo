@@ -5,7 +5,6 @@ using UnityEngine;
 public class PortaCartao : MonoBehaviour
 {
     public bool JogadorPerto;
-
     public GameObject PortaFechada1;
     public GameObject PortaFechada2;
 
@@ -18,10 +17,26 @@ public class PortaCartao : MonoBehaviour
     // Novo: Flag para verificar se a porta já foi aberta
     private bool portaJaAberta = false;
 
+    // Referência ao script PegarCartão para verificar se o cartão foi pego
+    private PegarCartão pegarCartaoScript;
+
+    void Start()
+    {
+        // Encontra o script PegarCartão na cena
+        pegarCartaoScript = FindObjectOfType<PegarCartão>();
+    }
+
     public void AbrirPorta()
     {
         PortaFechada1.SetActive(false);
         PortaFechada2.SetActive(false);
+        portaJaAberta = true;
+
+        // Desativa ambas as imagens quando a porta é aberta
+        if (imagemSemCartao != null) imagemSemCartao.SetActive(false);
+        if (imagemComCartao != null) imagemComCartao.SetActive(false);
+
+        Debug.Log("Porta aberta com cartão!");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -29,6 +44,7 @@ public class PortaCartao : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             JogadorPerto = true;
+            AtualizarImagens();
         }
     }
 
@@ -37,48 +53,43 @@ public class PortaCartao : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             JogadorPerto = false;
+            // Desativa todas as imagens quando o jogador sai
+            if (imagemSemCartao != null) imagemSemCartao.SetActive(false);
+            if (imagemComCartao != null) imagemComCartao.SetActive(false);
         }
     }
 
     private void Update()
     {
-        // Mostra a imagem se o jogador estiver perto e não tiver o cartão
-        if (JogadorPerto && !PegarCartão.TemCartao)
+        // Só processa se o jogador está perto e a porta não foi aberta
+        if (JogadorPerto && !portaJaAberta)
         {
-            imagemSemCartao.SetActive(true);
-        }
-        else
-        {
-            imagemSemCartao.SetActive(false);
-        }
+            AtualizarImagens();
 
-        // Novo: Mostra a imagem se o jogador estiver perto, tiver o cartão e a porta ainda não foi aberta
-        if (JogadorPerto && PegarCartão.TemCartao && !portaJaAberta)
-        {
-            imagemComCartao.SetActive(true);
-        }
-        else
-        {
-            imagemComCartao.SetActive(false);
-        }
-
-        // Mantém a lógica original para abrir a porta apenas se tiver o cartão e a porta ainda não foi aberta
-        if (JogadorPerto && Input.GetKeyDown(KeyCode.E) && PegarCartão.TemCartao == true && !portaJaAberta)
-        {
-            AbrirPorta();
-            portaJaAberta = true;  // Novo: Marca que a porta foi aberta
+            // Abre a porta se tiver cartão e pressionar E
+            if (Input.GetKeyDown(KeyCode.E) && PegarCartão.TemCartao)
+            {
+                AbrirPorta();
+            }
         }
     }
 
-    // Outro método (comentado, como no original)
-    // private bool portaJaAberta = false;
-    // private void Update()
-    //{
-    //   if (JogadorPerto && Input.GetKeyDown(KeyCode.E) && PegarCartão.TemCartao && !portaJaAberta)
-    //  {
-    //        PortaFechada1.SetActive(false);
-    //        PortaFechada2.SetActive(false);
-    //        portaJaAberta = true;
-    //  }
-    // }
+    // Método separado para atualizar as imagens
+    private void AtualizarImagens()
+    {
+        if (portaJaAberta) return;
+
+        // Se não tem cartão, mostra imagem sem cartão
+        if (!PegarCartão.TemCartao)
+        {
+            if (imagemSemCartao != null) imagemSemCartao.SetActive(true);
+            if (imagemComCartao != null) imagemComCartao.SetActive(false);
+        }
+        // Se tem cartão, mostra imagem com cartão
+        else
+        {
+            if (imagemSemCartao != null) imagemSemCartao.SetActive(false);
+            if (imagemComCartao != null) imagemComCartao.SetActive(true);
+        }
+    }
 }

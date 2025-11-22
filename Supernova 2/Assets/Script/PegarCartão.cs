@@ -11,22 +11,25 @@ public class PegarCartão : MonoBehaviour
     public GameObject Botao;
     public bool JogadorPerto = false;
     public static bool TemCartao = false;
-    public int itemId;  // Adicionado: ID do item (configure no Inspector)
+    public int itemId;
 
     public GameObject texto;
     public float tempoExibicao = 2f;
     public GameObject textointeração;
 
-    private OrdemInventario inventory;  // Referência ao script de inventário
+    private OrdemInventario inventory;
 
     void Start()
     {
-        // Encontra o script de inventário na cena
         inventory = FindObjectOfType<OrdemInventario>();
         if (inventory == null)
         {
-            Debug.LogError("Script OrdemInventario não encontrado! Certifique-se de que ele esteja na cena.");
+            Debug.LogError("Script OrdemInventario não encontrado!");
         }
+
+        // Garante que o botão comece desativado
+        if (Botao != null) Botao.SetActive(false);
+        if (textointeração != null) textointeração.SetActive(false);
     }
 
     public void PegarCartao()
@@ -35,44 +38,47 @@ public class PegarCartão : MonoBehaviour
         CabideSemCartão.SetActive(true);
         CartãoInventario.SetActive(true);
         TemCartao = true;
-        Botao.SetActive(false);
 
-        // Adicionado: Chama o método AddItem do inventário
+        // Desativa TODOS os elementos de UI
+        if (Botao != null) Botao.SetActive(false);
+        if (textointeração != null) textointeração.SetActive(false);
+
+        // Adiciona ao inventário
         if (inventory != null)
         {
             inventory.AddItem(itemId);
             Debug.Log($"Cartão (ID: {itemId}) adicionado ao inventário!");
         }
+
+        Debug.Log("Cartão pego! TemCartao = " + TemCartao);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && CabideComCartao.activeSelf)
+        if (other.CompareTag("Player") && CabideComCartao.activeSelf && !TemCartao)
         {
             JogadorPerto = true;
-            textointeração.SetActive(true);
-            Botao.SetActive(true);
+            if (textointeração != null) textointeração.SetActive(true);
+            if (Botao != null) Botao.SetActive(true);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && CabideComCartao.activeSelf)
+        if (other.CompareTag("Player"))
         {
             JogadorPerto = false;
-            textointeração.SetActive(false);
-            Botao.SetActive(false);
+            if (textointeração != null) textointeração.SetActive(false);
+            if (Botao != null) Botao.SetActive(false);
         }
     }
 
     void Update()
     {
-        if (JogadorPerto && Input.GetKeyDown(KeyCode.E) && CabideComCartao.activeSelf)
+        if (JogadorPerto && Input.GetKeyDown(KeyCode.E) && CabideComCartao.activeSelf && !TemCartao)
         {
             PegarCartao();
-            textointeração.SetActive(false);
             MostrarTexto();
-            Botao.SetActive(false);
         }
     }
 
@@ -83,8 +89,8 @@ public class PegarCartão : MonoBehaviour
 
     IEnumerator ExibirTextoTemporario()
     {
-        texto.SetActive(true);
+        if (texto != null) texto.SetActive(true);
         yield return new WaitForSeconds(tempoExibicao);
-        texto.SetActive(false);
+        if (texto != null) texto.SetActive(false);
     }
 }

@@ -58,6 +58,7 @@ public class PegarKitMedico : MonoBehaviour
             KitVisual.SetActive(false);
             MostrarTexto();
             KitInventario.SetActive(true);
+            textopegar.SetActive(false) ;
             // Adicionado: Chama o método AddItem do inventário
             if (inventory != null)
             {

@@ -2,40 +2,39 @@ using UnityEngine;
 
 public class Ler : MonoBehaviour
 {
-    private bool PlayerNoTrigger;
+    private bool playerNoTrigger = false;
     private bool estaLendo = false;
     public GameObject FichaParaLer;
-    public GameObject botaoInteracao; // Aperte E para interagir
-    public GameObject texto; //Voce coletou 
+    public GameObject botaoInteracao;
+    public GameObject texto;
 
-    // Variável estática para rastrear se alguma nota está sendo lida
-    public static bool IsReadingAnyNote = false;
-
-    // Referência ao PlayerShooting do jogador que entrou no trigger
-    private PlayerShooting playerShootingRef;
+    // Referência ao PlayerShooting para pausar/despausar
+    private PlayerShooting playerShooting;
 
     private void Start()
     {
-        if (botaoInteracao != null)
-            botaoInteracao.SetActive(false);
+        // Desativa tudo no início
+        if (FichaParaLer != null) FichaParaLer.SetActive(false);
+        if (botaoInteracao != null) botaoInteracao.SetActive(false);
+        if (texto != null) texto.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !estaLendo)
         {
-            PlayerNoTrigger = true;
+            playerNoTrigger = true;
 
-            // pega referência ao PlayerShooting (se houver)
-            playerShootingRef = other.GetComponent<PlayerShooting>();
-            if (playerShootingRef == null)
-                Debug.LogWarning("Ler: Player entrou, mas não foi encontrado PlayerShooting no objeto 'Player'.");
+            // Pega referência do PlayerShooting
+            playerShooting = other.GetComponent<PlayerShooting>();
 
-            if (!estaLendo)
+            Debug.Log("Player entrou no trigger - Botão deve aparecer");
+
+            // Mostra o botão de interação
+            if (botaoInteracao != null)
             {
-                texto.SetActive(true);
-                if (botaoInteracao != null)
-                    botaoInteracao.SetActive(true);
+                botaoInteracao.SetActive(true);
+                Debug.Log("Botão ativado com sucesso");
             }
         }
     }
@@ -44,67 +43,85 @@ public class Ler : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            PlayerNoTrigger = false;
-            texto.SetActive(false);
+            playerNoTrigger = false;
+            Debug.Log("Player saiu do trigger");
 
-            // Se estava lendo e saiu do trigger, fechar leitura
+            // Esconde o botão ao sair
+            if (botaoInteracao != null) botaoInteracao.SetActive(false);
+            if (texto != null) texto.SetActive(false);
+
+            // Se estava lendo, fecha a nota
             if (estaLendo)
-                AlternarLeitura();
-
-            if (botaoInteracao != null)
-                botaoInteracao.SetActive(false);
-
-            // opcional: limpa referência ao sair
-            playerShootingRef = null;
+            {
+                FecharNota();
+            }
         }
     }
 
     void Update()
     {
-        if (PlayerNoTrigger && Input.GetKeyDown(KeyCode.E))
+        // Se player está no trigger e pressiona E
+        if (playerNoTrigger && Input.GetKeyDown(KeyCode.E))
         {
-            AlternarLeitura();
-        }
-    }
-
-    public void AlternarLeitura()
-    {
-        estaLendo = !estaLendo;
-        if (estaLendo)
-        {
-            IsReadingAnyNote = true; // marca que está lendo
-            FichaParaLer.SetActive(true);
-            Time.timeScale = 0;
-            texto.SetActive(false);
-            if (botaoInteracao != null) botaoInteracao.SetActive(false);
-
-            // --- Desativa o script de tiro do jogador (mais confiável que só checar bool)
-            if (playerShootingRef != null)
+            if (!estaLendo)
             {
-                playerShootingRef.enabled = false;
-                Debug.Log("Ler: PlayerShooting desativado enquanto lê.");
+                AbrirNota();
             }
             else
             {
-                Debug.LogWarning("Ler: Não foi possível desativar PlayerShooting — referência nula.");
+                FecharNota();
             }
         }
-        else
-        {
-            IsReadingAnyNote = false; // marca que não está lendo
-            FichaParaLer.SetActive(false);
-            Time.timeScale = 1;
-            if (PlayerNoTrigger)
-            {
-                texto.SetActive(true);
-                if (botaoInteracao != null) botaoInteracao.SetActive(true);
-            }
+    }
 
-            // --- Reativa o script de tiro ao fechar a leitura
-            if (playerShootingRef != null)
+    void AbrirNota()
+    {
+        Debug.Log("Abrindo nota...");
+        estaLendo = true;
+
+        // Mostra a ficha
+        if (FichaParaLer != null) FichaParaLer.SetActive(true);
+
+        // Esconde o botão
+        if (botaoInteracao != null) botaoInteracao.SetActive(false);
+        if (texto != null) texto.SetActive(false);
+
+        // Pausa o jogo
+        Time.timeScale = 0;
+
+        // Desativa o script de tiro
+        if (playerShooting != null)
+        {
+            playerShooting.enabled = false;
+            Debug.Log("PlayerShooting desativado");
+        }
+    }
+
+    void FecharNota()
+    {
+        Debug.Log("Fechando nota...");
+        estaLendo = false;
+
+        // Esconde a ficha
+        if (FichaParaLer != null) FichaParaLer.SetActive(false);
+
+        // Despausa o jogo
+        Time.timeScale = 1;
+
+        // Reativa o script de tiro
+        if (playerShooting != null)
+        {
+            playerShooting.enabled = true;
+            Debug.Log("PlayerShooting reativado");
+        }
+
+        // Se ainda está no trigger, mostra o botão novamente
+        if (playerNoTrigger)
+        {
+            if (botaoInteracao != null)
             {
-                playerShootingRef.enabled = true;
-                Debug.Log("Ler: PlayerShooting reativado após leitura.");
+                botaoInteracao.SetActive(true);
+                Debug.Log("Botão reativado após fechar nota");
             }
         }
     }

@@ -50,16 +50,17 @@ public class PlayerShooting : MonoBehaviour
 
     void Update()
     {
-        
-        if (Ler.IsReadingAnyNote)
-            return;
+        // ATENÇÃO: Este script será desativado/ativado pelo script Ler
+        // então não precisa verificar IsReadingAnyNote
+
+        // Apenas atualiza a UI continuamente
+        AtualizarUI();
 
 #if !UNITY_ANDROID && !UNITY_IOS
+        // Processa inputs normalmente - o script será desativado quando ler notas
         if (temArma && Input.GetMouseButtonDown(0)) TentarAtirar();
         if (temArma && Input.GetKeyDown(KeyCode.R)) Recarregar();
 #endif
-
-        AtualizarUI();
     }
 
     public void TentarAtirar()
