@@ -5,6 +5,7 @@ public class MenuManager : MonoBehaviour
 {
     public bool canPause = true;
     public GameObject menuPausa;
+    public GameObject controlsMenu; 
     private bool isMenuOpen = false;
 
     public static MenuManager instance;
@@ -14,7 +15,7 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
-        if(canPause)
+        if (canPause)
         {
             EnableCursor(false);
         }
@@ -26,16 +27,25 @@ public class MenuManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                isMenuOpen = !isMenuOpen;
-                menuPausa.SetActive(isMenuOpen);
-                if (!InventoryToggle.instance.IsInventoryOpen() && !DialogueManager.instance.IsFreezingDialogueOpen())
+               
+                if (controlsMenu != null && controlsMenu.activeSelf)
                 {
-                    FreezeGame(isMenuOpen);
+                    CloseControlsMenu();
                 }
-
-                if (playerShooting != null)
+                else
                 {
-                    playerShooting.enabled = !isMenuOpen;
+                   
+                    isMenuOpen = !isMenuOpen;
+                    menuPausa.SetActive(isMenuOpen);
+                    if (!InventoryToggle.instance.IsInventoryOpen() && !DialogueManager.instance.IsFreezingDialogueOpen())
+                    {
+                        FreezeGame(isMenuOpen);
+                    }
+
+                    if (playerShooting != null)
+                    {
+                        playerShooting.enabled = !isMenuOpen;
+                    }
                 }
             }
         }
@@ -58,16 +68,53 @@ public class MenuManager : MonoBehaviour
         Cursor.visible = cursorEnabled;
     }
 
+  
+    public void ResumeGame()
+    {
+        isMenuOpen = false;
+        menuPausa.SetActive(false);
+        if (controlsMenu != null)
+        {
+            controlsMenu.SetActive(false); 
+        }
+        FreezeGame(false); 
+        if (playerShooting != null)
+        {
+            playerShooting.enabled = true; 
+        }
+    }
+
+   
+    public void OpenControlsMenu()
+    {
+        if (controlsMenu != null)
+        {
+            controlsMenu.SetActive(true);
+            menuPausa.SetActive(false); 
+        }
+    }
+
+    
+    public void CloseControlsMenu()
+    {
+        if (controlsMenu != null)
+        {
+            controlsMenu.SetActive(false); 
+            menuPausa.SetActive(true); 
+           
+        }
+    }
+
     public void ReiniciarJogo()
     {
-        Time.timeScale = 1f; 
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void SairDoJogo()
     {
-        Time.timeScale = 1f; 
+        Time.timeScale = 1f;
         Application.Quit();
-        Debug.Log("Jogo encerrado"); 
+        Debug.Log("Jogo encerrado");
     }
 }
