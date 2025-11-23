@@ -4,18 +4,27 @@ using TMPro;
 
 public class UsarKitMedico : MonoBehaviour
 {
-    public GameObject kitNoInventario; // O objeto ativado pelo outro script
+    public int kitMedicoItemId = 0; // ID do kit médico no inventário
     public PlayerHealth playerHealth;
     public GameObject piscaverde;
-
     public GameObject texto;
-
     public float tempoExibicao = 2f;
 
+    private OrdemInventario inventory;
+
+    void Start()
+    {
+        inventory = FindObjectOfType<OrdemInventario>();
+        if (inventory == null)
+        {
+            Debug.LogError("OrdemInventario não encontrado!");
+        }
+    }
 
     void Update()
     {
-        if (kitNoInventario.activeSelf && Input.GetKeyDown(KeyCode.C))
+        // Verifica se tem o kit médico no inventário em vez de um GameObject específico
+        if (inventory.HasItem(kitMedicoItemId) && Input.GetKeyDown(KeyCode.C))
         {
             UsarKit();
         }
@@ -23,16 +32,14 @@ public class UsarKitMedico : MonoBehaviour
 
     void UsarKit()
     {
-        kitNoInventario.SetActive(false); // "Consumir" o kit
+        // Remove o kit do inventário
+        inventory.RemoveItem(kitMedicoItemId);
+
         playerHealth.currentHealth = playerHealth.maxHealth;
         Debug.Log("Kit médico usado! Vida restaurada.");
 
-        // Atualiza os objetos de vida
         playerHealth.SendMessage("AtualizarIndicadoresDeVida");
-
         MostrarTexto();
-
-        // Inicia a corrotina para ativar/desativar o efeito visual
         StartCoroutine(AtivarPiscadaVerde());
     }
 
@@ -42,10 +49,12 @@ public class UsarKitMedico : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         piscaverde.SetActive(false);
     }
+
     public void MostrarTexto()
     {
         StartCoroutine(ExibirTextoTemporario());
     }
+
     IEnumerator ExibirTextoTemporario()
     {
         texto.SetActive(true);

@@ -1,20 +1,24 @@
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic; // Para usar List
+using System.Collections.Generic;
 
 public class OrdemInventario : MonoBehaviour
 {
-    public GameObject[] inventorySlots; // Array de GameObjects dos slots (configure na ordem visual na Unity Editor)
-    public Sprite[] itemIcons;          // Array de sprites dos itens (cada índice corresponde a um itemId)
+    public GameObject[] inventorySlots;
+    public Sprite[] itemIcons;
 
-    private List<int> itemOrder; // Lista para rastrear a ordem dos itens (armazena os itemIds na ordem que foram adicionados)
+    private List<int> itemOrder; // A ordem dos itens (pode ter duplicatas)
+    private int[] slotItemIds;   // Array que mapeia slot index para itemId (-1 para vazio)
 
     void Start()
     {
-        // Inicializa a lista de itens (opcional, mas ajuda a gerenciar a ordem)
         itemOrder = new List<int>();
+        slotItemIds = new int[inventorySlots.Length];
+        for (int i = 0; i < slotItemIds.Length; i++)
+        {
+            slotItemIds[i] = -1; // -1 significa vazio
+        }
 
-        // Garante que todos os slots comecem inativos (se não estiverem configurados assim no Editor)
         foreach (GameObject slot in inventorySlots)
         {
             if (slot != null)
@@ -26,50 +30,83 @@ public class OrdemInventario : MonoBehaviour
 
     public void AddItem(int itemId)
     {
-        // Primeiro, verifica se o itemId é válido (evita erros de índice no array itemIcons)
         if (itemId < 0 || itemId >= itemIcons.Length)
         {
-            Debug.LogError("ItemId inválido! Verifique o array itemIcons.");
+            Debug.LogError("ItemId inválido!");
             return;
         }
 
-        // Adiciona o itemId à lista para manter a ordem
         itemOrder.Add(itemId);
 
-        // Percorre os slots para encontrar o primeiro inativo
+        // Encontra o primeiro slot vazio
         for (int i = 0; i < inventorySlots.Length; i++)
         {
-            GameObject slot = inventorySlots[i];
-
-            if (slot != null && !slot.activeSelf) // Verifica se o slot existe e está inativo
+            if (slotItemIds[i] == -1) // Slot vazio
             {
-                Image image = slot.GetComponent<Image>(); // Obtém o componente Image
-
-                if (image != null) // Verifica se o componente Image existe
+                GameObject slot = inventorySlots[i];
+                if (slot != null)
                 {
-                    slot.SetActive(true); // Ativa o slot
-                    image.sprite = itemIcons[itemId]; // Define o sprite do item
-                    Debug.Log($"Item adicionado: ID {itemId} no slot {i}"); // Log para depuração
-                    return; // Sai após adicionar o item
-                }
-                else
-                {
-                    Debug.LogError($"Slot {i} não tem um componente Image! Verifique no Unity Editor.");
-                    return; // Sai se não houver Image
+                    Image image = slot.GetComponent<Image>();
+                    if (image != null)
+                    {
+                        slot.SetActive(true);
+                        image.sprite = itemIcons[itemId];
+                        slotItemIds[i] = itemId;
+                        Debug.Log($"Item adicionado: ID {itemId} no slot {i}");
+                        return;
+                    }
                 }
             }
         }
-
-        Debug.Log("Inventário cheio! Não há slots disponíveis.");
+        Debug.Log("Inventário cheio!");
     }
 
-    // Método opcional para depuração: Exibe a ordem dos itens no console
-    public void DebugItemOrder()
+    // Remove o primeiro item com o itemId especificado
+    public void RemoveItem(int itemId)
     {
-        Debug.Log("Ordem dos itens no inventário:");
-        foreach (int id in itemOrder)
+        // Procura pelo item na lista de ordem (para saber a ordem de adição)
+        // Mas note: a lista itemOrder tem a ordem, mas não sabemos qual slot
+        // Vamos procurar no array slotItemIds pelo primeiro slot que tem o itemId
+        for (int i = 0; i < slotItemIds.Length; i++)
         {
-            Debug.Log($"Item ID: {id}");
+            if (slotItemIds[i] == itemId)
+            {
+                // Encontrou, remove o slot
+                GameObject slot = inventorySlots[i];
+                if (slot != null)
+                {
+                    slot.SetActive(false);
+                }
+                slotItemIds[i] = -1;
+                // Remove a primeira ocorrência na itemOrder
+                itemOrder.Remove(itemId);
+                Debug.Log($"Item removido: ID {itemId} do slot {i}");
+                return;
+            }
         }
+        Debug.LogWarning($"Tentativa de remover item ID {itemId} que não está no inventário.");
+    }
+
+    // Verifica se o item está no inventário
+    public bool HasItem(int itemId)
+    {
+        // Verifica se há pelo menos um slot com esse itemId
+        for (int i = 0; i < slotItemIds.Length; i++)
+        {
+            if (slotItemIds[i] == itemId)
+                return true;
+        }
+        return false;
+    }
+
+    // Pega o slot onde o item está (primeira ocorrência)
+    public GameObject GetItemSlot(int itemId)
+    {
+        for (int i = 0; i < slotItemIds.Length; i++)
+        {
+            if (slotItemIds[i] == itemId)
+                return inventorySlots[i];
+        }
+        return null;
     }
 }

@@ -31,8 +31,13 @@ public class PlayerShooting : MonoBehaviour
     public Light muzzleLight;        // Referência à luz
     public float lightDuration = 0.1f;  // Duração do flash em segundos (ajuste para mais rápido/menos)
 
+    private OrdemInventario inventory;
     void Start()
     {
+
+        ammoManager = FindObjectOfType<AmmoManager>();
+        inventory = FindObjectOfType<OrdemInventario>();
+
         ammoManager = GetComponent<AmmoManager>()
                    ?? GetComponentInParent<AmmoManager>()
                    ?? FindObjectOfType<AmmoManager>();
@@ -172,6 +177,12 @@ public class PlayerShooting : MonoBehaviour
 
         if (ammoManager != null && ammoManager.ConsumirCartucho())
         {
+            // Remove um item de munição do inventário
+            if (inventory != null)
+            {
+                inventory.RemoveItem(2); // Assumindo que o ID das balas é 2
+            }
+
             Debug.Log("Recarregando... Perdeu as balas restantes.");
             balasNoCartucho = maxBalasPorCartucho; // Com upgrade, será 30 se ativado
         }

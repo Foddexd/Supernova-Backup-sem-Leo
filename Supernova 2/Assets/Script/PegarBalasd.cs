@@ -6,16 +6,15 @@ using TMPro;
 public class PegarBalas : MonoBehaviour
 {
     public GameObject BalaVisual;
-    public GameObject BalaInventario;
     public bool JogadorPerto = false;
-    public int itemId;  // Adicionado: ID do item (configure no Inspector)
+    public int itemId;  // ID do item (configure no Inspector)
 
     public GameObject texto;
     public float tempoExibicao = 2f;
     public GameObject textopegar;
 
     private AmmoManager ammoManager;
-    private OrdemInventario inventory;  // Referência ao script de inventário
+    private OrdemInventario inventory;
 
     private void Start()
     {
@@ -25,11 +24,10 @@ public class PegarBalas : MonoBehaviour
             Debug.LogWarning("PegarBalas: Nenhum AmmoManager encontrado.");
         }
 
-        // Encontra o script de inventário na cena
         inventory = FindObjectOfType<OrdemInventario>();
         if (inventory == null)
         {
-            Debug.LogError("Script OrdemInventario não encontrado! Certifique-se de que ele esteja na cena.");
+            Debug.LogError("Script OrdemInventario não encontrado!");
         }
     }
 
@@ -38,16 +36,16 @@ public class PegarBalas : MonoBehaviour
         if (other.CompareTag("Player") && BalaVisual.activeSelf)
         {
             JogadorPerto = true;
-            textopegar.SetActive(true);
+            if (textopegar != null) textopegar.SetActive(true);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("Player") && BalaVisual.activeSelf)
+        if (other.CompareTag("Player"))
         {
             JogadorPerto = false;
-            textopegar.SetActive(false);
+            if (textopegar != null) textopegar.SetActive(false);
         }
     }
 
@@ -55,16 +53,17 @@ public class PegarBalas : MonoBehaviour
     {
         if (JogadorPerto && Input.GetKeyDown(KeyCode.E) && BalaVisual.activeSelf)
         {
-            textopegar.SetActive(false);
+            if (textopegar != null) textopegar.SetActive(false);
             BalaVisual.SetActive(false);
             MostrarTexto();
 
+            // Adiciona munição ao AmmoManager
             if (ammoManager != null)
             {
                 ammoManager.AdicionarCartucho();
             }
 
-            // Adicionado: Chama o método AddItem do inventário
+            // Adiciona ao inventário visual
             if (inventory != null)
             {
                 inventory.AddItem(itemId);
@@ -80,8 +79,8 @@ public class PegarBalas : MonoBehaviour
 
     IEnumerator ExibirTextoTemporario()
     {
-        texto.SetActive(true);
+        if (texto != null) texto.SetActive(true);
         yield return new WaitForSeconds(tempoExibicao);
-        texto.SetActive(false);
+        if (texto != null) texto.SetActive(false);
     }
 }

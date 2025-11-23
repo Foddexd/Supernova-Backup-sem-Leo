@@ -7,11 +7,9 @@ public class PegarCartão : MonoBehaviour
 {
     public GameObject CabideComCartao;
     public GameObject CabideSemCartão;
-    public GameObject CartãoInventario;
     public GameObject Botao;
     public bool JogadorPerto = false;
-    public static bool TemCartao = false;
-    public int itemId;
+    public int itemId = 1; // ID único para o cartão
 
     public GameObject texto;
     public float tempoExibicao = 2f;
@@ -27,7 +25,6 @@ public class PegarCartão : MonoBehaviour
             Debug.LogError("Script OrdemInventario não encontrado!");
         }
 
-        // Garante que o botão comece desativado
         if (Botao != null) Botao.SetActive(false);
         if (textointeração != null) textointeração.SetActive(false);
     }
@@ -36,26 +33,23 @@ public class PegarCartão : MonoBehaviour
     {
         CabideComCartao.SetActive(false);
         CabideSemCartão.SetActive(true);
-        CartãoInventario.SetActive(true);
-        TemCartao = true;
 
-        // Desativa TODOS os elementos de UI
         if (Botao != null) Botao.SetActive(false);
         if (textointeração != null) textointeração.SetActive(false);
 
-        // Adiciona ao inventário
+        // Adiciona ao inventário - o visual será controlado pelo OrdemInventario
         if (inventory != null)
         {
             inventory.AddItem(itemId);
             Debug.Log($"Cartão (ID: {itemId}) adicionado ao inventário!");
         }
 
-        Debug.Log("Cartão pego! TemCartao = " + TemCartao);
+        Debug.Log("Cartão pego!");
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && CabideComCartao.activeSelf && !TemCartao)
+        if (other.CompareTag("Player") && CabideComCartao.activeSelf && !inventory.HasItem(itemId))
         {
             JogadorPerto = true;
             if (textointeração != null) textointeração.SetActive(true);
@@ -75,7 +69,7 @@ public class PegarCartão : MonoBehaviour
 
     void Update()
     {
-        if (JogadorPerto && Input.GetKeyDown(KeyCode.E) && CabideComCartao.activeSelf && !TemCartao)
+        if (JogadorPerto && Input.GetKeyDown(KeyCode.E) && CabideComCartao.activeSelf && !inventory.HasItem(itemId))
         {
             PegarCartao();
             MostrarTexto();
