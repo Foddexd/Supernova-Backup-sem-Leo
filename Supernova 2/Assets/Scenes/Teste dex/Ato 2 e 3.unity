@@ -235166,7 +235166,7 @@ MonoBehaviour:
   dica3: {fileID: 332821017}
   tempoDica1: 90
   tempoDica2: 180
-  tempoDica3: 360
+  tempoDica3: 600
   puzzleResolvido: 0
 --- !u!65 &1229974510
 BoxCollider:
