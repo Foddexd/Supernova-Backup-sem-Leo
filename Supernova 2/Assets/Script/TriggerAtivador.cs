@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class TriggerActivator : MonoBehaviour
 {
+    [Header("Configurações dos Itens")]
     public GameObject item1;
     public GameObject item2;
     public GameObject item3;
@@ -12,12 +13,16 @@ public class TriggerActivator : MonoBehaviour
     public GameObject item8;
     public GameObject item9;
     public GameObject item10;
-    
+
+    [Header("Configurações do Checkpoint")]
+    public bool isCheckpoint = false;
+    public int checkpointLevel = 3; // 2 = Ato 2, 3 = Ato 3
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player")) // Garante que apenas o jogador ativa
+        if (other.CompareTag("Player"))
         {
+            // Ativa/desativa os itens
             if (item1 != null) item1.SetActive(true);
             if (item2 != null) item2.SetActive(true);
             if (item3 != null) item3.SetActive(false);
@@ -28,9 +33,13 @@ public class TriggerActivator : MonoBehaviour
             if (item8 != null) item8.SetActive(true);
             if (item9 != null) item9.SetActive(false);
             if (item10 != null) item10.SetActive(false);
-          
-          
 
+            // Sistema de checkpoint
+            if (isCheckpoint)
+            {
+                GameManager.instance.SetCheckpoint(checkpointLevel);
+                Debug.Log($"Checkpoint ativado! Nível {checkpointLevel}");
+            }
         }
     }
 }
