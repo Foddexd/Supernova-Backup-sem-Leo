@@ -158072,8 +158072,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 72.22222, y: 54.753777, z: 25.555557}
-  m_Center: {x: -33.977314, y: 27.73779, z: 3.6950073}
+  m_Size: {x: 72.22221, y: 54.753777, z: 327.70743}
+  m_Center: {x: -33.977314, y: 27.73779, z: 154.771}
 --- !u!1 &803835963 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ffd900c9ad04f9c47bd3497f1a9b54a4, type: 3}
@@ -306927,6 +306927,7 @@ MonoBehaviour:
   - {fileID: 514990438}
   - {fileID: 399647628}
   - {fileID: 308303688}
+  - {fileID: 1880074599}
   item1: {fileID: 1609495548}
   item2: {fileID: 245829050}
   item3: {fileID: 1282938993}
@@ -364941,6 +364942,11 @@ Light:
   m_UseViewFrustumForShadowCasterCull: 1
   m_ShadowRadius: 0
   m_ShadowAngle: 0
+--- !u!1 &1880074599 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7815225655498419095, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
+  m_PrefabInstance: {fileID: 1827531663756463017}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1880088502
 PrefabInstance:
   m_ObjectHideFlags: 0
