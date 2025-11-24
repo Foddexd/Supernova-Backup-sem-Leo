@@ -15,7 +15,7 @@ public class TriggerActivator : MonoBehaviour
     public GameObject item10;
 
     [Header("Configurações do Checkpoint")]
-    public bool isCheckpoint = false;
+    public bool isCheckpointt = false;
     public int checkpointLevel = 3; // 2 = Ato 2, 3 = Ato 3
 
     private void OnTriggerEnter(Collider other)
@@ -35,7 +35,7 @@ public class TriggerActivator : MonoBehaviour
             if (item10 != null) item10.SetActive(false);
 
             // Sistema de checkpoint
-            if (isCheckpoint)
+            if (isCheckpointt)
             {
                 GameManager.instance.SetCheckpoint(checkpointLevel);
                 Debug.Log($"Checkpoint ativado! Nível {checkpointLevel}");
