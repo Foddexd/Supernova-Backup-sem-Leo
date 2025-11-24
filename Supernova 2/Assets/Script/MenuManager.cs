@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuManager : MonoBehaviour
 {
@@ -9,7 +10,22 @@ public class MenuManager : MonoBehaviour
     private bool isMenuOpen = false;
 
     public static MenuManager instance;
-    public void Awake() => instance = this;
+
+    [Header("Debug")]
+    public Button reiniciarButton;
+    public Button novoJogoButton;
+
+    public void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     public PlayerShooting playerShooting;
 
@@ -19,6 +35,25 @@ public class MenuManager : MonoBehaviour
         {
             EnableCursor(false);
         }
+
+        // Configurar botões com debug
+        if (reiniciarButton != null)
+        {
+            reiniciarButton.onClick.AddListener(() => {
+                Debug.Log("BOTÃO REINICIAR CLICADO!");
+                ReiniciarJogo();
+            });
+        }
+
+        if (novoJogoButton != null)
+        {
+            novoJogoButton.onClick.AddListener(() => {
+                Debug.Log("BOTÃO NOVO JOGO CLICADO!");
+                NovoJogo();
+            });
+        }
+
+        Debug.Log("=== MENU MANAGER INICIADO ===");
     }
 
     void Update()
@@ -100,21 +135,50 @@ public class MenuManager : MonoBehaviour
 
     public void ReiniciarJogo()
     {
+        Debug.Log("=== REINICIAR JOGO CHAMADO ===");
+
+        // Verificar GameManager
+        if (GameManager.instance == null)
+        {
+            Debug.LogError("GAMEMANAGER NÃO ENCONTRADO! Recarregando cena atual...");
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            return;
+        }
+
         Time.timeScale = 1f;
+        Debug.Log("Chamando LoadCheckpointScene...");
         GameManager.instance.LoadCheckpointScene();
     }
 
     public void SairDoJogo()
     {
+        Debug.Log("Saindo do jogo...");
         Time.timeScale = 1f;
         Application.Quit();
-        Debug.Log("Jogo encerrado");
     }
 
     public void NovoJogo()
     {
+        Debug.Log("=== NOVO JOGO CHAMADO ===");
         Time.timeScale = 1f;
-        GameManager.instance.ResetCheckpoints();
-        SceneManager.LoadScene("Jogo Oficial");
+
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.ResetCheckpoints();
+            SceneManager.LoadScene("Jogo Oficial");
+        }
+        else
+        {
+            Debug.LogError("GAMEMANAGER NÃO ENCONTRADO!");
+            SceneManager.LoadScene("Jogo Oficial");
+        }
+    }
+
+    // Método alternativo simples para testar
+    public void ReiniciarCenaSimples()
+    {
+        Debug.Log("Reiniciando cena simples...");
+        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

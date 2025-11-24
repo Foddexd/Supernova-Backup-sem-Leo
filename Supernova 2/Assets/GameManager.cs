@@ -5,28 +5,52 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    [Header("Nomes das Cenas")]
+    public string cenaAto1 = "Jogo Oficial";
+    public string cenaAto2e3 = "Ato 2 e 3";
+    public string cenaAto3 = "Ato 3";
+
+    [Header("Debug")]
+    public bool debugMode = true;
+
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+            Debug.Log("=== GAMEMANAGER INICIADO ===");
+            Debug.Log($"Checkpoint atual: {GetCurrentCheckpoint()}");
         }
         else
         {
             Destroy(gameObject);
+            return;
+        }
+
+        // DEBUG: Log para verificar o estado
+        if (debugMode)
+        {
+            Debug.Log("=== DEBUG GAMEMANAGER ===");
+            Debug.Log($"Cena Ato1: {cenaAto1}");
+            Debug.Log($"Cena Ato2e3: {cenaAto2e3}");
+            Debug.Log($"Cena Ato3: {cenaAto3}");
+            Debug.Log($"Checkpoint salvo: {GetCurrentCheckpoint()}");
         }
     }
 
     public void SetCheckpoint(int checkpointLevel)
     {
-        // Só atualiza se for um checkpoint mais avançado
-        int currentCheckpoint = PlayerPrefs.GetInt("CurrentCheckpoint", 1);
+        int currentCheckpoint = GetCurrentCheckpoint();
         if (checkpointLevel > currentCheckpoint)
         {
             PlayerPrefs.SetInt("CurrentCheckpoint", checkpointLevel);
             PlayerPrefs.Save();
-            Debug.Log($"Checkpoint salvo: Nível {checkpointLevel}");
+            Debug.Log($"CHECKPOINT ATUALIZADO: Nível {checkpointLevel}");
+        }
+        else
+        {
+            Debug.Log($"Checkpoint ignorado: {checkpointLevel} (atual: {currentCheckpoint})");
         }
     }
 
@@ -39,28 +63,51 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("CurrentCheckpoint", 1);
         PlayerPrefs.Save();
-        Debug.Log("Checkpoints resetados para o início");
+        Debug.Log("=== CHECKPOINTS RESETADOS ===");
     }
 
     public void LoadCheckpointScene()
     {
+        Debug.Log("=== INICIANDO LOADCHECKPOINTSCENE ===");
         Time.timeScale = 1f;
+
         int checkpoint = GetCurrentCheckpoint();
+        Debug.Log($"Checkpoint a carregar: {checkpoint}");
+
+        string sceneName = "";
 
         switch (checkpoint)
         {
             case 1:
-                SceneManager.LoadScene("Jogo Oficial"); // Ato 1, 2 e 3
+                sceneName = cenaAto1;
                 break;
             case 2:
-                SceneManager.LoadScene("Ato 2 e 3"); // Ato 2 e 3
+                sceneName = cenaAto2e3;
                 break;
             case 3:
-                SceneManager.LoadScene("Ato 3"); // Apenas Ato 3
+                sceneName = cenaAto3;
                 break;
             default:
-                SceneManager.LoadScene("Jogo Oficial");
+                sceneName = cenaAto1;
                 break;
         }
+
+        Debug.Log($"Carregando cena: {sceneName}");
+        SceneManager.LoadScene(sceneName);
+    }
+
+    // Método para debug no console
+    [ContextMenu("Debug Checkpoint")]
+    public void DebugCheckpoint()
+    {
+        Debug.Log($"=== DEBUG CHECKPOINT ===");
+        Debug.Log($"Checkpoint atual: {GetCurrentCheckpoint()}");
+        Debug.Log($"Cena atual: {SceneManager.GetActiveScene().name}");
+    }
+
+    [ContextMenu("Resetar Checkpoints")]
+    public void ResetCheckpointsDebug()
+    {
+        ResetCheckpoints();
     }
 }
