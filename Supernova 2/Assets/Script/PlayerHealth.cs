@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement; // Adicione esta linha
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -32,7 +33,7 @@ public class PlayerHealth : MonoBehaviour
     void AtualizarIndicadoresDeVida()
     {
         if (objetoCom60DeVida != null)
-            objetoCom60DeVida.SetActive(currentHealth <= 60 && currentHealth > 30 );
+            objetoCom60DeVida.SetActive(currentHealth <= 60 && currentHealth > 30);
 
         if (objetoCom30DeVida != null)
             objetoCom30DeVida.SetActive(currentHealth <= 30);
@@ -41,6 +42,11 @@ public class PlayerHealth : MonoBehaviour
     void Die()
     {
         Debug.Log("O jogador morreu!");
+
+        // APENAS ESTA LINHA FOI ADICIONADA - carrega a cena de morte
+        SceneManager.LoadScene("GameOver");
+
+        // Mantém a destruição do player para evitar bugs
         Destroy(player.gameObject);
     }
 }

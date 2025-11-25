@@ -18470,7 +18470,7 @@ MonoBehaviour:
   item8: {fileID: 1672042863}
   item9: {fileID: 0}
   item10: {fileID: 0}
-  isCheckpoint: 1
+  isCheckpointt: 0
   checkpointLevel: 3
 --- !u!65 &97157837
 BoxCollider:
@@ -46921,7 +46921,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &251670104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47301,7 +47301,7 @@ MonoBehaviour:
   item8: {fileID: 0}
   item9: {fileID: 13954938}
   item10: {fileID: 1589204295}
-  isCheckpoint: 1
+  isCheckpointt: 0
   checkpointLevel: 3
 --- !u!65 &253532126
 BoxCollider:
@@ -47383,7 +47383,7 @@ Transform:
   m_GameObject: {fileID: 253532124}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -100.368, y: 1.8968, z: 22.48}
+  m_LocalPosition: {x: -100.368, y: 1.8968, z: 24.94}
   m_LocalScale: {x: 2.02, y: 4.209156, z: 5.3747644}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -79121,7 +79121,7 @@ MonoBehaviour:
   item8: {fileID: 0}
   item9: {fileID: 0}
   item10: {fileID: 0}
-  isCheckpoint: 1
+  isCheckpointt: 0
   checkpointLevel: 3
 --- !u!65 &407898214
 BoxCollider:
@@ -153257,7 +153257,7 @@ MonoBehaviour:
   item8: {fileID: 0}
   item9: {fileID: 0}
   item10: {fileID: 0}
-  isCheckpoint: 1
+  isCheckpointt: 0
   checkpointLevel: 3
 --- !u!65 &780306367
 BoxCollider:
@@ -261289,7 +261289,7 @@ MonoBehaviour:
   item8: {fileID: 0}
   item9: {fileID: 0}
   item10: {fileID: 0}
-  isCheckpoint: 1
+  isCheckpointt: 0
   checkpointLevel: 3
 --- !u!1001 &1375103157
 PrefabInstance:
@@ -275474,7 +275474,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1228663377073176797, guid: 1e8242b742b0ef94481016e3a1089f0e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -101
+      value: -81.47
       objectReference: {fileID: 0}
     - target: {fileID: 1228663377073176797, guid: 1e8242b742b0ef94481016e3a1089f0e, type: 3}
       propertyPath: m_LocalPosition.y
@@ -275482,11 +275482,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1228663377073176797, guid: 1e8242b742b0ef94481016e3a1089f0e, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 11
+      value: 9.76
       objectReference: {fileID: 0}
     - target: {fileID: 1228663377073176797, guid: 1e8242b742b0ef94481016e3a1089f0e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 1228663377073176797, guid: 1e8242b742b0ef94481016e3a1089f0e, type: 3}
       propertyPath: m_LocalRotation.x
@@ -275494,7 +275494,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1228663377073176797, guid: 1e8242b742b0ef94481016e3a1089f0e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 1228663377073176797, guid: 1e8242b742b0ef94481016e3a1089f0e, type: 3}
       propertyPath: m_LocalRotation.z
@@ -275506,7 +275506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1228663377073176797, guid: 1e8242b742b0ef94481016e3a1089f0e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: -90
       objectReference: {fileID: 0}
     - target: {fileID: 1228663377073176797, guid: 1e8242b742b0ef94481016e3a1089f0e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -284530,7 +284530,7 @@ MonoBehaviour:
   item8: {fileID: 1925085323}
   item9: {fileID: 0}
   item10: {fileID: 0}
-  isCheckpoint: 1
+  isCheckpointt: 0
   checkpointLevel: 3
 --- !u!65 &1487342831
 BoxCollider:
@@ -299080,7 +299080,7 @@ MonoBehaviour:
   item8: {fileID: 1881524374}
   item9: {fileID: 0}
   item10: {fileID: 0}
-  isCheckpoint: 1
+  isCheckpointt: 0
   checkpointLevel: 3
 --- !u!65 &1566200987
 BoxCollider:
@@ -366291,7 +366291,7 @@ MonoBehaviour:
   item8: {fileID: 1619330705}
   item9: {fileID: 0}
   item10: {fileID: 0}
-  isCheckpoint: 1
+  isCheckpointt: 0
   checkpointLevel: 3
 --- !u!65 &1886244115
 BoxCollider:
@@ -382862,7 +382862,7 @@ MonoBehaviour:
   item8: {fileID: 0}
   item9: {fileID: 0}
   item10: {fileID: 0}
-  isCheckpoint: 1
+  isCheckpointt: 0
   checkpointLevel: 3
 --- !u!65 &1974730876
 BoxCollider:
@@ -387821,8 +387821,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2000953341}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -100.67, y: 1.7950001, z: 8.96}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: -79.43, y: 1.7950001, z: 10.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -413284,8 +413284,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2129796813}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -100.67, y: 1.7950001, z: 8.96}
+  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: -79.43, y: 1.7950001, z: 10.09}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
