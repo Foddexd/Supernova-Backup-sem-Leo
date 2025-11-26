@@ -118,7 +118,7 @@ public class PlayerShooting : MonoBehaviour
         }
         Ray ray = mainCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // Centro da tela
         Vector3 direction = ray.direction;
-        float shootSpeed = 200f;
+        float shootSpeed = 50f;
         float spawnOffset = 0.5f;
         Vector3 spawnPos = firePoint.position + direction * spawnOffset;
         if (upgradeTiroDuplo)
