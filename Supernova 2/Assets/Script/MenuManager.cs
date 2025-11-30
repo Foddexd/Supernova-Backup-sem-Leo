@@ -212,4 +212,25 @@ public class MenuManager : MonoBehaviour
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+    
+
+    public void ResetToDefaultSettings()
+    {
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.ResetAudioSettings();
+            // Recarrega os sliders se necessário
+            RefreshVolumeSliders();
+        }
+    }
+
+    private void RefreshVolumeSliders()
+    {
+        // Encontra todos os sliders de volume e atualiza eles
+        VolumeSlider[] volumeSliders = FindObjectsOfType<VolumeSlider>();
+        foreach (VolumeSlider slider in volumeSliders)
+        {
+            // Você precisará adicionar um método público no VolumeSlider para recarregar
+        }
+    }
 }
