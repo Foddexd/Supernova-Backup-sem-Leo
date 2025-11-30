@@ -7,6 +7,7 @@ public class MenuManager : MonoBehaviour
     public bool canPause = true;
     public GameObject menuPausa;
     public GameObject controlsMenu;
+    public GameObject configMenu; // Referência para o menu de configurações
     private bool isMenuOpen = false;
 
     public static MenuManager instance;
@@ -62,9 +63,15 @@ public class MenuManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
+                // Se o menu de controles estiver aberto, feche-o
                 if (controlsMenu != null && controlsMenu.activeSelf)
                 {
                     CloseControlsMenu();
+                }
+                // Se o menu de configurações estiver aberto, feche-o
+                else if (configMenu != null && configMenu.activeSelf)
+                {
+                    CloseConfigMenu();
                 }
                 else
                 {
@@ -108,6 +115,10 @@ public class MenuManager : MonoBehaviour
         {
             controlsMenu.SetActive(false);
         }
+        if (configMenu != null)
+        {
+            configMenu.SetActive(false);
+        }
         FreezeGame(false);
         if (playerShooting != null)
         {
@@ -115,6 +126,7 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    // --- Controles Menu ---
     public void OpenControlsMenu()
     {
         if (controlsMenu != null)
@@ -129,6 +141,25 @@ public class MenuManager : MonoBehaviour
         if (controlsMenu != null)
         {
             controlsMenu.SetActive(false);
+            menuPausa.SetActive(true);
+        }
+    }
+
+    // --- Configurações Menu ---
+    public void OpenConfigMenu()
+    {
+        if (configMenu != null)
+        {
+            configMenu.SetActive(true);
+            menuPausa.SetActive(false);
+        }
+    }
+
+    public void CloseConfigMenu()
+    {
+        if (configMenu != null)
+        {
+            configMenu.SetActive(false);
             menuPausa.SetActive(true);
         }
     }
