@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections;
 
 public class BrightnessSlider : MonoBehaviour
 {
@@ -14,15 +15,39 @@ public class BrightnessSlider : MonoBehaviour
     public Sprite mediumIcon;
     public Sprite lightIcon;
 
+    [Header("Configuration")]
+    public bool useEventTrigger = true; // Usar Event Trigger do Inspector
+
     private void Start()
     {
-        brightnessSlider.minValue = 0f;
-        brightnessSlider.maxValue = 1f;
-        brightnessSlider.wholeNumbers = false;
+        // Configuração básica do slider
+        if (brightnessSlider != null)
+        {
+            brightnessSlider.minValue = 0f;
+            brightnessSlider.maxValue = 1f;
+            brightnessSlider.wholeNumbers = false;
+
+            // SÓ adiciona via código se não configurado no Inspector
+            if (!useEventTrigger)
+            {
+                brightnessSlider.onValueChanged.AddListener(OnBrightnessChanged);
+                Debug.Log("Listener adicionado via código");
+            }
+
+            // Inicializa o slider
+            StartCoroutine(InitializeSliderDelayed());
+        }
+    }
+
+    private IEnumerator InitializeSliderDelayed()
+    {
+        // Aguarda um frame para garantir que o BrightnessManager foi inicializado
+        yield return null;
 
         LoadSavedBrightness();
-        brightnessSlider.onValueChanged.AddListener(OnBrightnessChanged);
         UpdateUI();
+
+        Debug.Log($"Slider inicializado com valor: {brightnessSlider.value}");
     }
 
     public void LoadSavedBrightness()
@@ -30,31 +55,50 @@ public class BrightnessSlider : MonoBehaviour
         if (BrightnessManager.instance != null)
         {
             brightnessSlider.value = BrightnessManager.instance.GetBrightness();
+            Debug.Log($"Valor carregado: {brightnessSlider.value}");
         }
         else
         {
             brightnessSlider.value = 0.5f;
+            Debug.LogWarning("BrightnessManager não encontrado! Usando valor padrão.");
         }
     }
 
+    // MÉTODO PÚBLICO para ser chamado pelo Inspector
     public void OnBrightnessChanged(float value)
     {
         if (BrightnessManager.instance != null)
         {
             BrightnessManager.instance.SetBrightness(value);
         }
+        else
+        {
+            Debug.LogError("BrightnessManager não encontrado!");
+        }
+
         UpdateUI();
+    }
+
+    // Versão sem parâmetro para o Inspector
+    public void OnBrightnessChanged()
+    {
+        if (brightnessSlider != null)
+        {
+            OnBrightnessChanged(brightnessSlider.value);
+        }
     }
 
     private void UpdateUI()
     {
+        // Atualiza o texto de porcentagem
         if (brightnessValueText != null)
         {
             int percentage = Mathf.RoundToInt(brightnessSlider.value * 100);
             brightnessValueText.text = $"{percentage}%";
         }
 
-        if (brightnessIcon != null && darkIcon != null && mediumIcon != null && lightIcon != null)
+        // Atualiza o ícone
+        if (brightnessIcon != null)
         {
             if (brightnessSlider.value <= 0.33f)
                 brightnessIcon.sprite = darkIcon;
@@ -65,7 +109,6 @@ public class BrightnessSlider : MonoBehaviour
         }
     }
 
-    // Adicione este método
     public void RefreshSlider()
     {
         LoadSavedBrightness();
@@ -75,6 +118,6 @@ public class BrightnessSlider : MonoBehaviour
     public void ResetToDefault()
     {
         brightnessSlider.value = 0.5f;
-        UpdateUI();
+        OnBrightnessChanged(0.5f);
     }
 }

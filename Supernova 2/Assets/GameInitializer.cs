@@ -1,60 +1,104 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameInitializer : MonoBehaviour
 {
     [Header("Managers Prefabs")]
     public GameObject audioManagerPrefab;
     public GameObject brightnessManagerPrefab;
-    public GameObject sceneLoaderPrefab;
     public GameObject darkOverlayPrefab;
+
+    [Header("Settings")]
+    public bool createManagersIfMissing = true;
+    public bool createOverlayInAllScenes = true;
 
     private void Awake()
     {
-        // Cria AudioManager se não existir
-        if (AudioManager.instance == null && audioManagerPrefab != null)
-        {
-            Instantiate(audioManagerPrefab);
-        }
+        Debug.Log("=== GAME INITIALIZER STARTING ===");
 
-        // Cria BrightnessManager se não existir
-        if (BrightnessManager.instance == null && brightnessManagerPrefab != null)
-        {
-            Instantiate(brightnessManagerPrefab);
-        }
+        // Garante que os managers existam
+        EnsureManagersExist();
 
-        // Cria SceneLoader se não existir - AGORA FUNCIONA!
-        if (SceneLoader.instance == null && sceneLoaderPrefab != null)
+        // Cria overlay se necessário
+        if (createOverlayInAllScenes)
         {
-            GameObject loader = Instantiate(sceneLoaderPrefab);
-            SceneLoader sceneLoader = loader.GetComponent<SceneLoader>();
-            if (sceneLoader != null && darkOverlayPrefab != null)
+            CreateDarkOverlayInScene();
+        }
+    }
+
+    private void EnsureManagersExist()
+    {
+        // AudioManager
+        if (AudioManager.instance == null)
+        {
+            if (audioManagerPrefab != null)
             {
-                sceneLoader.darkOverlayPrefab = darkOverlayPrefab;
+                Instantiate(audioManagerPrefab);
+                Debug.Log("AudioManager criado.");
+            }
+            else
+            {
+                Debug.LogWarning("AudioManager prefab não atribuído.");
             }
         }
 
-        // Cria overlay inicial se necessário
-        CreateInitialOverlay();
+        // BrightnessManager
+        if (BrightnessManager.instance == null)
+        {
+            if (brightnessManagerPrefab != null)
+            {
+                Instantiate(brightnessManagerPrefab);
+                Debug.Log("BrightnessManager criado.");
+            }
+            else
+            {
+                // Cria um manualmente
+                GameObject bm = new GameObject("BrightnessManager");
+                bm.AddComponent<BrightnessManager>();
+                DontDestroyOnLoad(bm);
+                Debug.Log("BrightnessManager criado manualmente.");
+            }
+        }
     }
 
-    private void CreateInitialOverlay()
+    private void CreateDarkOverlayInScene()
     {
-        // Verifica se já existe um overlay
-        if (GameObject.Find("DarkOverlay") == null && darkOverlayPrefab != null)
+        // Verifica se já existe
+        if (GameObject.Find("DarkOverlay") != null)
         {
-            Canvas canvas = FindObjectOfType<Canvas>();
-            if (canvas != null)
-            {
-                GameObject overlay = Instantiate(darkOverlayPrefab, canvas.transform);
-                overlay.name = "DarkOverlay";
+            Debug.Log("DarkOverlay já existe na cena.");
+            return;
+        }
 
-                RectTransform rt = overlay.GetComponent<RectTransform>();
+        if (darkOverlayPrefab == null)
+        {
+            Debug.LogWarning("DarkOverlay prefab não atribuído.");
+            return;
+        }
+
+        // Encontra o Canvas
+        Canvas canvas = FindObjectOfType<Canvas>();
+        if (canvas != null)
+        {
+            GameObject overlay = Instantiate(darkOverlayPrefab, canvas.transform);
+            overlay.name = "DarkOverlay";
+
+            // Configuração do RectTransform
+            RectTransform rt = overlay.GetComponent<RectTransform>();
+            if (rt != null)
+            {
                 rt.anchorMin = Vector2.zero;
                 rt.anchorMax = Vector2.one;
                 rt.offsetMin = Vector2.zero;
                 rt.offsetMax = Vector2.zero;
                 overlay.transform.SetAsLastSibling();
             }
+
+            Debug.Log("DarkOverlay criado na cena.");
+        }
+        else
+        {
+            Debug.LogWarning("Canvas não encontrado para criar DarkOverlay.");
         }
     }
 }
