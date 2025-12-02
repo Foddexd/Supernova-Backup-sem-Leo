@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Audio;
-using System.Collections;
 
 public class AudioManager : MonoBehaviour
 {
@@ -21,7 +20,6 @@ public class AudioManager : MonoBehaviour
 
     private void Awake()
     {
-        // Implementação do Singleton
         if (instance == null)
         {
             instance = this;
@@ -34,17 +32,16 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    private void InitializeAudio()
+    // Mantenha APENAS este método (remova o outro)
+    public void InitializeAudio()
     {
-        // Carrega os volumes salvos ou usa os padrões
         LoadAudioSettings();
     }
 
     public void SetMasterVolume(float volume)
     {
-        // Converte o valor linear (0-1) para logarítmico (-80 a 0 dB)
         float volumeDB = Mathf.Log10(volume) * 20;
-        if (volume <= 0.0001f) // Praticamente mudo
+        if (volume <= 0.0001f)
             volumeDB = -80f;
 
         audioMixer.SetFloat("MasterVolume", volumeDB);
@@ -89,19 +86,22 @@ public class AudioManager : MonoBehaviour
         return PlayerPrefs.GetFloat(SFX_VOLUME_KEY, defaultSFXVolume);
     }
 
-    private void LoadAudioSettings()
+    public void LoadAudioSettings()
     {
-        // Aplica os volumes salvos ao mixer
         SetMasterVolume(GetMasterVolume());
         SetMusicVolume(GetMusicVolume());
         SetSFXVolume(GetSFXVolume());
     }
 
-    // Método para resetar para os valores padrão
     public void ResetAudioSettings()
     {
         SetMasterVolume(defaultMasterVolume);
         SetMusicVolume(defaultMusicVolume);
         SetSFXVolume(defaultSFXVolume);
+    }
+
+    public void OnSceneLoaded()
+    {
+        LoadAudioSettings();
     }
 }

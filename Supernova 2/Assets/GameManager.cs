@@ -36,7 +36,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // ... (resto dos métodos permanecem iguais)
     public void SetCheckpoint(int checkpointLevel)
     {
         int currentCheckpoint = GetCurrentCheckpoint();
@@ -65,6 +64,20 @@ public class GameManager : MonoBehaviour
         Debug.Log("=== INICIANDO LOADCHECKPOINTSCENE ===");
         Time.timeScale = 1f;
 
+        // SALVA todas as configurações antes de trocar de cena
+        PlayerPrefs.Save();
+
+        // Aplica configurações salvas antes de carregar
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.LoadAudioSettings();
+        }
+
+        if (BrightnessManager.instance != null)
+        {
+            BrightnessManager.instance.ApplyBrightness();
+        }
+
         int checkpoint = GetCurrentCheckpoint();
         Debug.Log($"Checkpoint a carregar: {checkpoint}");
 
@@ -88,5 +101,12 @@ public class GameManager : MonoBehaviour
 
         Debug.Log($"Carregando cena: {sceneName}");
         SceneManager.LoadScene(sceneName);
+    }
+
+    // Método chamado quando o jogador morre
+    public void PlayerDied()
+    {
+        Debug.Log("Player morreu, recarregando checkpoint...");
+        LoadCheckpointScene();
     }
 }

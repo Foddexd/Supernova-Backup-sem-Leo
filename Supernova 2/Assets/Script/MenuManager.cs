@@ -7,7 +7,7 @@ public class MenuManager : MonoBehaviour
     public bool canPause = true;
     public GameObject menuPausa;
     public GameObject controlsMenu;
-    public GameObject configMenu; // Referência para o menu de configurações
+    public GameObject configMenu;
     private bool isMenuOpen = false;
 
     public static MenuManager instance;
@@ -15,6 +15,13 @@ public class MenuManager : MonoBehaviour
     [Header("Debug")]
     public Button reiniciarButton;
     public Button novoJogoButton;
+
+    [Header("Audio References")]
+    public VolumeSlider[] volumeSliders;
+    public BrightnessSlider brightnessSlider;
+
+    [Header("Configuration")]
+    public bool autoRefreshSliders = true;
 
     public void Awake()
     {
@@ -37,7 +44,6 @@ public class MenuManager : MonoBehaviour
             EnableCursor(false);
         }
 
-        // Configurar botões com debug
         if (reiniciarButton != null)
         {
             reiniciarButton.onClick.AddListener(() => {
@@ -63,12 +69,10 @@ public class MenuManager : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                // Se o menu de controles estiver aberto, feche-o
                 if (controlsMenu != null && controlsMenu.activeSelf)
                 {
                     CloseControlsMenu();
                 }
-                // Se o menu de configurações estiver aberto, feche-o
                 else if (configMenu != null && configMenu.activeSelf)
                 {
                     CloseConfigMenu();
@@ -126,7 +130,6 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    // --- Controles Menu ---
     public void OpenControlsMenu()
     {
         if (controlsMenu != null)
@@ -145,13 +148,17 @@ public class MenuManager : MonoBehaviour
         }
     }
 
-    // --- Configurações Menu ---
     public void OpenConfigMenu()
     {
         if (configMenu != null)
         {
             configMenu.SetActive(true);
             menuPausa.SetActive(false);
+
+            if (autoRefreshSliders)
+            {
+                RefreshAllSliders();
+            }
         }
     }
 
@@ -164,20 +171,52 @@ public class MenuManager : MonoBehaviour
         }
     }
 
+    public void RefreshAllSliders()
+    {
+        if (volumeSliders != null && volumeSliders.Length > 0)
+        {
+            foreach (var slider in volumeSliders)
+            {
+                if (slider != null)
+                {
+                    slider.RefreshSlider();
+                }
+            }
+        }
+
+        if (brightnessSlider != null)
+        {
+            brightnessSlider.RefreshSlider();
+        }
+    }
+
+    public void ResetToDefaultSettings()
+    {
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.ResetAudioSettings();
+        }
+
+        if (BrightnessManager.instance != null)
+        {
+            BrightnessManager.instance.ResetBrightness();
+        }
+
+        RefreshAllSliders();
+    }
+
     public void ReiniciarJogo()
     {
         Debug.Log("=== REINICIAR JOGO CHAMADO ===");
 
-        // Verificar GameManager
         if (GameManager.instance == null)
         {
-            Debug.LogError("GAMEMANAGER NÃO ENCONTRADO! Recarregando cena atual...");
+            Debug.LogError("GAMEMANAGER NÃO ENCONTRADO!");
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             return;
         }
 
         Time.timeScale = 1f;
-        Debug.Log("Chamando LoadCheckpointScene...");
         GameManager.instance.LoadCheckpointScene();
     }
 
@@ -185,7 +224,12 @@ public class MenuManager : MonoBehaviour
     {
         Debug.Log("Saindo do jogo...");
         Time.timeScale = 1f;
+        PlayerPrefs.Save();
         Application.Quit();
+
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#endif
     }
 
     public void NovoJogo()
@@ -200,37 +244,14 @@ public class MenuManager : MonoBehaviour
         }
         else
         {
-            Debug.LogError("GAMEMANAGER NÃO ENCONTRADO!");
             SceneManager.LoadScene("Jogo Oficial");
         }
     }
 
-    // Método alternativo simples para testar
     public void ReiniciarCenaSimples()
     {
         Debug.Log("Reiniciando cena simples...");
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-    
-
-    public void ResetToDefaultSettings()
-    {
-        if (AudioManager.instance != null)
-        {
-            AudioManager.instance.ResetAudioSettings();
-            // Recarrega os sliders se necessário
-            RefreshVolumeSliders();
-        }
-    }
-
-    private void RefreshVolumeSliders()
-    {
-        // Encontra todos os sliders de volume e atualiza eles
-        VolumeSlider[] volumeSliders = FindObjectsOfType<VolumeSlider>();
-        foreach (VolumeSlider slider in volumeSliders)
-        {
-            // Você precisará adicionar um método público no VolumeSlider para recarregar
-        }
     }
 }

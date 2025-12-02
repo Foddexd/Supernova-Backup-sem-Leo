@@ -22,22 +22,16 @@ public class VolumeSlider : MonoBehaviour
 
     private void Start()
     {
-        // Configura o slider
         volumeSlider.minValue = 0f;
         volumeSlider.maxValue = 1f;
         volumeSlider.wholeNumbers = false;
 
-        // Carrega o valor salvo
         LoadSavedVolume();
-
-        // Adiciona o listener para mudanças no slider
         volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
-
-        // Atualiza a UI inicial
         UpdateUI();
     }
 
-    private void LoadSavedVolume()
+    public void LoadSavedVolume()
     {
         if (AudioManager.instance != null)
         {
@@ -56,9 +50,7 @@ public class VolumeSlider : MonoBehaviour
         }
         else
         {
-            // Fallback se o AudioManager não estiver disponível
             volumeSlider.value = 0.5f;
-            Debug.LogWarning("AudioManager não encontrado! Usando valor padrão.");
         }
     }
 
@@ -79,20 +71,17 @@ public class VolumeSlider : MonoBehaviour
                     break;
             }
         }
-
         UpdateUI();
     }
 
     private void UpdateUI()
     {
-        // Atualiza o texto de porcentagem
         if (volumeValueText != null)
         {
             int percentage = Mathf.RoundToInt(volumeSlider.value * 100);
             volumeValueText.text = $"{percentage}%";
         }
 
-        // Atualiza ícones de mudo/volume máximo
         if (muteIcon != null)
             muteIcon.enabled = volumeSlider.value <= 0.01f;
 
@@ -100,7 +89,13 @@ public class VolumeSlider : MonoBehaviour
             maxVolumeIcon.enabled = volumeSlider.value >= 0.99f;
     }
 
-    // Método para mute rápido (opcional)
+    // Adicione este método
+    public void RefreshSlider()
+    {
+        LoadSavedVolume();
+        UpdateUI();
+    }
+
     public void ToggleMute()
     {
         if (volumeSlider.value > 0.01f)
@@ -109,7 +104,7 @@ public class VolumeSlider : MonoBehaviour
         }
         else
         {
-            volumeSlider.value = 0.5f; // Volta para o meio
+            volumeSlider.value = 0.5f;
         }
     }
 }
