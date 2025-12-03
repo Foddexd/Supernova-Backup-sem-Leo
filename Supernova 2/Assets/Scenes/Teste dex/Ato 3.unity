@@ -9442,7 +9442,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 97878d136fcc3ef4eba68fb43cd3b461, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -13757,6 +13757,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2090664113}
     m_Modifications:
+    - target: {fileID: 125278208531412278, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 125278208531412278, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
       propertyPath: MaxDistance
       value: 10
@@ -39266,7 +39270,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 5ebd4681ebf12464e9dddeaf348be5e1, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.28
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -51993,6 +51997,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2090664113}
     m_Modifications:
+    - target: {fileID: 125278208531412278, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 125278208531412278, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
       propertyPath: MaxDistance
       value: 10
@@ -65383,6 +65391,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2090664113}
     m_Modifications:
     - target: {fileID: 125278208531412278, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 125278208531412278, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
       propertyPath: MaxDistance
       value: 10
       objectReference: {fileID: 0}
@@ -66147,6 +66159,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2090664113}
     m_Modifications:
+    - target: {fileID: 125278208531412278, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 125278208531412278, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
       propertyPath: MaxDistance
       value: 10
@@ -84950,6 +84966,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2090664113}
     m_Modifications:
     - target: {fileID: 125278208531412278, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 125278208531412278, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
       propertyPath: MaxDistance
       value: 10
       objectReference: {fileID: 0}
@@ -93357,6 +93377,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 125278208531412278, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 125278208531412278, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
       propertyPath: m_audioClip
       value: 
@@ -144856,6 +144880,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2090664113}
     m_Modifications:
     - target: {fileID: 125278208531412278, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 125278208531412278, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
       propertyPath: MaxDistance
       value: 10
       objectReference: {fileID: 0}
@@ -160154,6 +160182,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 2090664113}
     m_Modifications:
     - target: {fileID: 125278208531412278, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 125278208531412278, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
       propertyPath: MaxDistance
       value: 10
       objectReference: {fileID: 0}
@@ -168354,6 +168386,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2090664113}
     m_Modifications:
+    - target: {fileID: 125278208531412278, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 125278208531412278, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
       propertyPath: MaxDistance
       value: 10
@@ -235953,6 +235989,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2090664113}
     m_Modifications:
+    - target: {fileID: 125278208531412278, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
+      propertyPath: m_Volume
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 125278208531412278, guid: 6623eebe431127f4c89d7c936aa2c7a1, type: 3}
       propertyPath: MaxDistance
       value: 10
