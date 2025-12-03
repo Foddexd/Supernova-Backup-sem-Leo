@@ -13,6 +13,9 @@ public class VolumeSlider : MonoBehaviour
     public Image muteIcon;
     public Image maxVolumeIcon;
 
+    [Header("Configuration")]
+    public bool useEventTrigger = true;
+
     public enum VolumeType
     {
         Master,
@@ -22,38 +25,49 @@ public class VolumeSlider : MonoBehaviour
 
     private void Start()
     {
-        volumeSlider.minValue = 0f;
-        volumeSlider.maxValue = 1f;
-        volumeSlider.wholeNumbers = false;
+        if (volumeSlider != null)
+        {
+            volumeSlider.minValue = 0f;
+            volumeSlider.maxValue = 1f;
+            volumeSlider.wholeNumbers = false;
 
-        LoadSavedVolume();
-        volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
-        UpdateUI();
+            // Carrega valor salvo
+            LoadSavedVolume();
+
+            // Configura evento
+            if (!useEventTrigger)
+            {
+                volumeSlider.onValueChanged.AddListener(OnVolumeChanged);
+            }
+
+            UpdateUI();
+        }
     }
 
     public void LoadSavedVolume()
     {
         if (AudioManager.instance != null)
         {
+            float savedVolume = 0.5f;
+
             switch (volumeType)
             {
                 case VolumeType.Master:
-                    volumeSlider.value = AudioManager.instance.GetMasterVolume();
+                    savedVolume = AudioManager.instance.GetMasterVolume();
                     break;
                 case VolumeType.Music:
-                    volumeSlider.value = AudioManager.instance.GetMusicVolume();
+                    savedVolume = AudioManager.instance.GetMusicVolume();
                     break;
                 case VolumeType.SFX:
-                    volumeSlider.value = AudioManager.instance.GetSFXVolume();
+                    savedVolume = AudioManager.instance.GetSFXVolume();
                     break;
             }
-        }
-        else
-        {
-            volumeSlider.value = 0.5f;
+
+            volumeSlider.value = savedVolume;
         }
     }
 
+    // Método para ser chamado pelo Inspector
     public void OnVolumeChanged(float value)
     {
         if (AudioManager.instance != null)
@@ -71,7 +85,17 @@ public class VolumeSlider : MonoBehaviour
                     break;
             }
         }
+
         UpdateUI();
+    }
+
+    // Versão sem parâmetro para o Inspector
+    public void OnVolumeChanged()
+    {
+        if (volumeSlider != null)
+        {
+            OnVolumeChanged(volumeSlider.value);
+        }
     }
 
     private void UpdateUI()
@@ -89,7 +113,6 @@ public class VolumeSlider : MonoBehaviour
             maxVolumeIcon.enabled = volumeSlider.value >= 0.99f;
     }
 
-    // Adicione este método
     public void RefreshSlider()
     {
         LoadSavedVolume();
@@ -101,10 +124,12 @@ public class VolumeSlider : MonoBehaviour
         if (volumeSlider.value > 0.01f)
         {
             volumeSlider.value = 0f;
+            OnVolumeChanged(0f);
         }
         else
         {
             volumeSlider.value = 0.5f;
+            OnVolumeChanged(0.5f);
         }
     }
 }

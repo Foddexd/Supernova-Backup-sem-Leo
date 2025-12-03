@@ -91,6 +91,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5076511010373178593}
   - component: {fileID: 5726806508996539296}
+  - component: {fileID: 1185485797661992595}
+  - component: {fileID: 4843478461765627724}
   m_Layer: 0
   m_Name: Audio Manager
   m_TagString: Untagged
@@ -126,9 +128,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioMixer: {fileID: 24100000, guid: 4551b4a84a35e2347abf2c09e76e4b06, type: 2}
+  masterGroup: {fileID: 0}
+  musicGroup: {fileID: 0}
+  sfxGroup: {fileID: 0}
   defaultMasterVolume: 0.5
   defaultMusicVolume: 0.5
   defaultSFXVolume: 0.5
+--- !u!114 &1185485797661992595
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6062557063748339962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81119d96836d3fe41956833ccf9f248f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  originalVolume: 1
+--- !u!114 &4843478461765627724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6062557063748339962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6de630d5aaef9a43888c64b948bab80, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8260175228162210538
 GameObject:
   m_ObjectHideFlags: 0
@@ -240,5 +270,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioManagerPrefab: {fileID: 6062557063748339962}
   brightnessManagerPrefab: {fileID: 5733891194562661030}
-  sceneLoaderPrefab: {fileID: 8260175228162210538}
   darkOverlayPrefab: {fileID: 0}
+  createManagersIfMissing: 1
+  createOverlayInAllScenes: 1

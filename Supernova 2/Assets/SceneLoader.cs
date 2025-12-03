@@ -50,6 +50,34 @@ public class SceneLoader : MonoBehaviour
             CheckSceneRedirect();
         }
     }
+    private void SetupAudioSystem()
+    {
+        // Garante que o AudioManager exista
+        EnsureAudioManagerExists();
+
+        // Coleta e configura todos os AudioSources da cena
+        if (AudioManager.instance != null)
+        {
+            AudioManager.instance.CollectAllAudioSources();
+            AudioManager.instance.LoadAudioSettings();
+            Debug.Log("Sistema de áudio configurado.");
+        }
+    }
+
+    private void EnsureAudioManagerExists()
+    {
+        if (AudioManager.instance == null)
+        {
+            AudioManager existingManager = FindObjectOfType<AudioManager>();
+            if (existingManager == null)
+            {
+                GameObject managerObj = new GameObject("AudioManager");
+                managerObj.AddComponent<AudioManager>();
+                DontDestroyOnLoad(managerObj);
+                Debug.Log("AudioManager criado automaticamente.");
+            }
+        }
+    }
 
     private void SetupBrightnessSystem()
     {
@@ -67,6 +95,8 @@ public class SceneLoader : MonoBehaviour
 
         // Aplica as configurações de áudio salvas
         ApplySavedAudio();
+
+        SetupAudioSystem();
     }
 
     private void EnsureBrightnessManagerExists()
@@ -212,4 +242,5 @@ public class SceneLoader : MonoBehaviour
     {
         ApplySavedBrightness();
     }
+
 }
