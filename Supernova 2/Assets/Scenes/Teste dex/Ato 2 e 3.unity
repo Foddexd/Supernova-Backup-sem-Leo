@@ -311957,6 +311957,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02c0948c62e37dc4cab12e5020593c68, type: 3}
+--- !u!114 &1637297276 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2374986388322102219, guid: 02c0948c62e37dc4cab12e5020593c68, type: 3}
+  m_PrefabInstance: {fileID: 1637297275}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be10b27fc03a7db49ade9f3f388401ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1637339368
 GameObject:
   m_ObjectHideFlags: 0
@@ -416600,6 +416611,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2424061792579264005, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2424061792579264005, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2424061792579264005, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2424061792579264005, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -417081,7 +417104,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5167102416749851836, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -35.2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5215603951782074631, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -417382,14 +417405,14 @@ PrefabInstance:
     - target: {fileID: 7509164899249195072, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 130649242}
+      objectReference: {fileID: 1637297276}
     - target: {fileID: 7509164899249195072, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnBrightnessChanged
+      value: SetBrightness
       objectReference: {fileID: 0}
     - target: {fileID: 7509164899249195072, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: BrightnessSlider, Assembly-CSharp
+      value: BrightnessManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7587330013455520260, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_AnchoredPosition.y

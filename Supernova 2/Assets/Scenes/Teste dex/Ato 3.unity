@@ -140746,6 +140746,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 02c0948c62e37dc4cab12e5020593c68, type: 3}
+--- !u!114 &1248415685 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2374986388322102219, guid: 02c0948c62e37dc4cab12e5020593c68, type: 3}
+  m_PrefabInstance: {fileID: 1248415684}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be10b27fc03a7db49ade9f3f388401ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1249866761 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 427a10660d49b3a408ad8c180fb88ccd, type: 3}
@@ -246877,7 +246888,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1844161092190701058, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1862534304536000957, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -246977,6 +246988,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2424061792579264005, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2424061792579264005, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2424061792579264005, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2424061792579264005, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
+      propertyPath: m_LocalScale.z
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2424061792579264005, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
@@ -247106,6 +247129,10 @@ PrefabInstance:
     - target: {fileID: 2939850467615148489, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2952030004125384210, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3084291288824083557, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -247449,7 +247476,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5167102416749851836, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -39.9
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 5215603951782074631, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -247750,14 +247777,14 @@ PrefabInstance:
     - target: {fileID: 7509164899249195072, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 664827055}
+      objectReference: {fileID: 1248415685}
     - target: {fileID: 7509164899249195072, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnBrightnessChanged
+      value: SetBrightness
       objectReference: {fileID: 0}
     - target: {fileID: 7509164899249195072, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: BrightnessSlider, Assembly-CSharp
+      value: BrightnessManager, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 7587330013455520260, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -247881,7 +247908,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8454920198528528622, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8475810727495420237, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_AnchoredPosition.y
