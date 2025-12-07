@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CheckpointTrigger : MonoBehaviour
 {
-    [SerializeField] private int checkpointLevel = 2;
+    [SerializeField] private int checkpointLevel = 1;
     [SerializeField] private bool debugLog = true;
 
     private void OnTriggerEnter(Collider other)
@@ -12,7 +12,7 @@ public class CheckpointTrigger : MonoBehaviour
             if (debugLog)
             {
                 Debug.Log($"=== CHECKPOINT TRIGGER ATIVADO ===");
-                Debug.Log($"Trigger: {name}, Nível: {checkpointLevel}");
+                Debug.Log($"Trigger: {name}, Nï¿½vel: {checkpointLevel}");
                 Debug.Log($"Antes: PlayerPrefs = {PlayerPrefs.GetInt("CurrentCheckpoint", 1)}");
             }
 
@@ -38,7 +38,7 @@ public class CheckpointTrigger : MonoBehaviour
                 Debug.Log($"Depois: PlayerPrefs = {PlayerPrefs.GetInt("CurrentCheckpoint", 1)}");
             }
 
-            // Desativa após uso
+            // Desativa apï¿½s uso
             gameObject.SetActive(false);
         }
     }
