@@ -18,6 +18,12 @@ EditorBuildSettings:
     path: Assets/Scenes/Teste dex/Ato 3.unity
     guid: 0012d85e28a023646857c050e6aca201
   - enabled: 1
-    path: Assets/Scenes/Teste dex/GameOver.unity
+    path: Assets/Scenes/Teste dex/GameOver1.unity
     guid: 82229439e2695fa4ebaa8d48c1ea6935
+  - enabled: 1
+    path: Assets/Scenes/Teste dex/GameOver2.unity
+    guid: 65462ba1b4d83b745bf63b40b3d258c3
+  - enabled: 1
+    path: Assets/Scenes/Teste dex/GameOver3.unity
+    guid: 46acec6065fbd7f4b99c52a13648116b
   m_configObjects: {}

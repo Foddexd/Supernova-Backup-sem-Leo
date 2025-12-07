@@ -5,25 +5,28 @@ using System.Collections;
 
 public class SceneLoader : MonoBehaviour
 {
-    // Singleton instance - ADICIONADO
+    // Singleton instance
     public static SceneLoader instance;
 
     [Header("Configuração por Cena")]
     public bool desativarRedirecionamento = false;
 
+    [Header("Configuração de Redirecionamento")]
+    public bool redirecionarAutomaticamente = false; // NOVO: controle de redirecionamento
+
     [Header("Sistema de Brilho")]
-    public GameObject darkOverlayPrefab; // Prefab do overlay de brilho
+    public GameObject darkOverlayPrefab;
     public bool criarOverlayBrilho = true;
     public string tagCanvasPrincipal = "MainCanvas";
 
-    // Método Awake para singleton - ADICIONADO
+    [Header("Configuração de Audio")]
+    public bool configurarAudioAutomaticamente = true;
+
     private void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            // Não use DontDestroyOnLoad se você quer um SceneLoader por cena
-            // DontDestroyOnLoad(gameObject);
         }
         else
         {
@@ -34,22 +37,24 @@ public class SceneLoader : MonoBehaviour
 
     private void Start()
     {
-        if (GameManager.instance == null)
-        {
-            Debug.LogError("GAMEMANAGER NÃO ENCONTRADO!");
-            return;
-        }
-
         Debug.Log($"=== SCENELOADER - {SceneManager.GetActiveScene().name} ===");
 
         // Configura o sistema de brilho
         SetupBrightnessSystem();
 
-        if (!desativarRedirecionamento)
+        // Configura o sistema de audio
+        if (configurarAudioAutomaticamente)
+        {
+            SetupAudioSystem();
+        }
+
+        // Verifica redirecionamento baseado em checkpoint (SOMENTE se ativado)
+        if (redirecionarAutomaticamente && !desativarRedirecionamento)
         {
             CheckSceneRedirect();
         }
     }
+
     private void SetupAudioSystem()
     {
         // Garante que o AudioManager exista
@@ -92,23 +97,15 @@ public class SceneLoader : MonoBehaviour
 
         // Aplica as configurações de brilho salvas
         ApplySavedBrightness();
-
-        // Aplica as configurações de áudio salvas
-        ApplySavedAudio();
-
-        SetupAudioSystem();
     }
 
     private void EnsureBrightnessManagerExists()
     {
-        // Se não existe um BrightnessManager, tenta encontrar ou criar
         if (BrightnessManager.instance == null)
         {
-            // Procura por um existente na cena
             BrightnessManager existingManager = FindObjectOfType<BrightnessManager>();
             if (existingManager == null)
             {
-                // Cria um novo GameObject com BrightnessManager
                 GameObject managerObj = new GameObject("BrightnessManager");
                 managerObj.AddComponent<BrightnessManager>();
                 DontDestroyOnLoad(managerObj);
@@ -119,13 +116,11 @@ public class SceneLoader : MonoBehaviour
 
     private void CreateDarkOverlay()
     {
-        // Verifica se já existe um overlay na cena
         GameObject existingOverlay = GameObject.Find("DarkOverlay");
         if (existingOverlay != null)
         {
             Debug.Log("DarkOverlay já existe na cena.");
 
-            // Atualiza a referência no BrightnessManager
             if (BrightnessManager.instance != null)
             {
                 BrightnessManager.instance.darkOverlay = existingOverlay.GetComponent<Image>();
@@ -137,11 +132,9 @@ public class SceneLoader : MonoBehaviour
             return;
         }
 
-        // Encontra o Canvas principal
         GameObject canvasObj = GameObject.FindGameObjectWithTag(tagCanvasPrincipal);
         if (canvasObj == null)
         {
-            // Tenta encontrar qualquer Canvas
             Canvas canvas = FindObjectOfType<Canvas>();
             if (canvas != null)
             {
@@ -151,11 +144,9 @@ public class SceneLoader : MonoBehaviour
 
         if (canvasObj != null)
         {
-            // Instancia o overlay
             GameObject overlayObj = Instantiate(darkOverlayPrefab, canvasObj.transform);
             overlayObj.name = "DarkOverlay";
 
-            // Configura para cobrir toda a tela
             RectTransform rectTransform = overlayObj.GetComponent<RectTransform>();
             if (rectTransform != null)
             {
@@ -165,10 +156,8 @@ public class SceneLoader : MonoBehaviour
                 rectTransform.offsetMax = Vector2.zero;
             }
 
-            // Configura como último filho (para ficar no topo)
             overlayObj.transform.SetAsLastSibling();
 
-            // Atualiza a referência no BrightnessManager
             if (BrightnessManager.instance != null)
             {
                 BrightnessManager.instance.darkOverlay = overlayObj.GetComponent<Image>();
@@ -190,57 +179,109 @@ public class SceneLoader : MonoBehaviour
     {
         if (BrightnessManager.instance != null)
         {
-            // Aguarda um frame para garantir que tudo está carregado
             StartCoroutine(ApplyBrightnessDelayed());
         }
     }
 
     private IEnumerator ApplyBrightnessDelayed()
     {
-        yield return null; // Aguarda um frame
+        yield return null;
 
         BrightnessManager.instance.FindDarkOverlay();
         BrightnessManager.instance.ApplyBrightness();
         Debug.Log("Configurações de brilho aplicadas.");
     }
 
-    private void ApplySavedAudio()
-    {
-        if (AudioManager.instance != null)
-        {
-            AudioManager.instance.LoadAudioSettings();
-            Debug.Log("Configurações de áudio aplicadas.");
-        }
-    }
-
+    // MÉTODO DE REDIRECIONAMENTO - MELHORADO E SEGURO
     private void CheckSceneRedirect()
     {
+        // Verifica se o GameManager existe
+        if (GameManager.instance == null)
+        {
+            Debug.LogWarning("GameManager não encontrado para redirecionamento.");
+            return;
+        }
+
         int currentCheckpoint = GameManager.instance.GetCurrentCheckpoint();
         string currentSceneName = SceneManager.GetActiveScene().name;
 
-        Debug.Log($"Verificando: Cena='{currentSceneName}', Checkpoint={currentCheckpoint}");
+        Debug.Log($"Verificando redirecionamento: Cena='{currentSceneName}', Checkpoint={currentCheckpoint}");
 
-        // Redireciona apenas se necessário
+        // Evita redirecionamento se já estiver na cena correta
+        if ((currentSceneName == GameManager.instance.cenaAto1 && currentCheckpoint == 1) ||
+            (currentSceneName == GameManager.instance.cenaAto2e3 && currentCheckpoint == 2) ||
+            (currentSceneName == GameManager.instance.cenaAto3 && currentCheckpoint == 3))
+        {
+            Debug.Log("Já está na cena correta para o checkpoint atual.");
+            return;
+        }
+
+        // Redireciona apenas se necessário e se for uma cena de jogo
+        bool shouldRedirect = false;
+        string targetScene = "";
+
         if (currentSceneName == GameManager.instance.cenaAto1 && currentCheckpoint >= 2)
         {
-            Debug.Log($"Redirecionando: {currentSceneName} -> {GameManager.instance.cenaAto2e3}");
-            SceneManager.LoadScene(GameManager.instance.cenaAto2e3);
+            shouldRedirect = true;
+            targetScene = GameManager.instance.cenaAto2e3;
         }
         else if (currentSceneName == GameManager.instance.cenaAto2e3 && currentCheckpoint >= 3)
         {
-            Debug.Log($"Redirecionando: {currentSceneName} -> {GameManager.instance.cenaAto3}");
-            SceneManager.LoadScene(GameManager.instance.cenaAto3);
+            shouldRedirect = true;
+            targetScene = GameManager.instance.cenaAto3;
+        }
+        // NOTA: Não redireciona da cena Ato3 porque não tem para onde ir
+
+        if (shouldRedirect)
+        {
+            Debug.Log($"REDIRECIONANDO: {currentSceneName} -> {targetScene}");
+
+            // Pequeno delay para garantir que tudo está salvo
+            StartCoroutine(RedirectWithDelay(targetScene, 0.1f));
         }
         else
         {
-            Debug.Log("Nenhum redirecionamento necessário");
+            Debug.Log("Nenhum redirecionamento necessário ou permitido.");
         }
     }
 
-    // Método público para forçar a aplicação do brilho (útil se o overlay for criado dinamicamente)
+    private IEnumerator RedirectWithDelay(string sceneName, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(sceneName);
+    }
+
+    // NOVO: Método para forçar verificação de redirecionamento
+    public void ForçarVerificacaoRedirecionamento()
+    {
+        if (GameManager.instance != null)
+        {
+            CheckSceneRedirect();
+        }
+    }
+
+    // NOVO: Método para verificar se precisa redirecionar sem executar
+    public bool PrecisaRedirecionar()
+    {
+        if (GameManager.instance == null) return false;
+
+        int currentCheckpoint = GameManager.instance.GetCurrentCheckpoint();
+        string currentSceneName = SceneManager.GetActiveScene().name;
+
+        return (currentSceneName == GameManager.instance.cenaAto1 && currentCheckpoint >= 2) ||
+               (currentSceneName == GameManager.instance.cenaAto2e3 && currentCheckpoint >= 3);
+    }
+
+    // Método público para forçar a aplicação do brilho
     public void ForceApplyBrightness()
     {
         ApplySavedBrightness();
     }
 
+    // NOVO: Método para configurar manualmente o redirecionamento
+    public void SetRedirecionamento(bool ativo)
+    {
+        redirecionarAutomaticamente = ativo;
+        Debug.Log($"Redirecionamento automático: {(ativo ? "ATIVADO" : "DESATIVADO")}");
+    }
 }

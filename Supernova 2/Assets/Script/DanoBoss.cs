@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Adicione esta linha
 
 public class DanoBoss : MonoBehaviour
 {
@@ -7,9 +6,18 @@ public class DanoBoss : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            // Carrega a cena de morte antes de destruir
-            SceneManager.LoadScene("GameOver");
-            Destroy(other.gameObject);
+            Debug.Log("Jogador atingido pelo Boss!");
+
+            // Causa dano ao player (deixa o PlayerHealth lidar com a morte)
+            PlayerHealth playerHealth = other.GetComponent<PlayerHealth>();
+            if (playerHealth != null)
+            {
+                playerHealth.TakeDamage(playerHealth.currentHealth);
+            }
+            else
+            {
+                Debug.LogError("PlayerHealth não encontrado!");
+            }
         }
     }
 }

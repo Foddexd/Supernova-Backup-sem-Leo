@@ -2,16 +2,43 @@ using UnityEngine;
 
 public class CheckpointTrigger : MonoBehaviour
 {
-    [SerializeField] private int checkpointLevel = 2; // Checkpoint para Ato 2
+    [SerializeField] private int checkpointLevel = 2;
+    [SerializeField] private bool debugLog = true;
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            GameManager.instance.SetCheckpoint(checkpointLevel);
-            Debug.Log($"Checkpoint do Ato 2 ativado!");
+            if (debugLog)
+            {
+                Debug.Log($"=== CHECKPOINT TRIGGER ATIVADO ===");
+                Debug.Log($"Trigger: {name}, Nível: {checkpointLevel}");
+                Debug.Log($"Antes: PlayerPrefs = {PlayerPrefs.GetInt("CurrentCheckpoint", 1)}");
+            }
 
-            // Opcional: efeitos visuais/sonoros
+            // Chama o GameManager para salvar
+            if (GameManager.instance != null)
+            {
+                GameManager.instance.SetCheckpoint(checkpointLevel);
+            }
+            else
+            {
+                // Fallback direto
+                int current = PlayerPrefs.GetInt("CurrentCheckpoint", 1);
+                if (checkpointLevel > current)
+                {
+                    PlayerPrefs.SetInt("CurrentCheckpoint", checkpointLevel);
+                    PlayerPrefs.Save();
+                    Debug.Log($"Checkpoint {checkpointLevel} salvo direto no PlayerPrefs");
+                }
+            }
+
+            if (debugLog)
+            {
+                Debug.Log($"Depois: PlayerPrefs = {PlayerPrefs.GetInt("CurrentCheckpoint", 1)}");
+            }
+
+            // Desativa após uso
             gameObject.SetActive(false);
         }
     }

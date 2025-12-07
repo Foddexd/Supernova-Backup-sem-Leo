@@ -1,24 +1,18 @@
-using UnityEngine.SceneManagement;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
-public class GameOverMenu : MonoBehaviour
+public class GameOverScript : MonoBehaviour
 {
-    [Header("Configuração de Transição")]
-    public float delayParaCarregar = 0.5f;
+    public int checkpointDestaCena = 1;
 
     void Start()
     {
         Cursor.lockState = CursorLockMode.None;
         Cursor.visible = true;
+        Time.timeScale = 1f;
     }
 
     public void ReiniciarJogo()
-    {
-        // Pequeno delay para evitar clique acidental
-        Invoke(nameof(CarregarCheckpoint), delayParaCarregar);
-    }
-
-    private void CarregarCheckpoint()
     {
         if (GameManager.instance != null)
         {
@@ -26,7 +20,12 @@ public class GameOverMenu : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene("Jogo Oficial");
+            int checkpoint = PlayerPrefs.GetInt("CurrentCheckpoint", 1);
+
+            if (checkpoint == 1) SceneManager.LoadScene("Jogo Oficial");
+            else if (checkpoint == 2) SceneManager.LoadScene("Ato 2 e 3");
+            else if (checkpoint == 3) SceneManager.LoadScene("Ato 3");
+            else SceneManager.LoadScene("Jogo Oficial");
         }
     }
 

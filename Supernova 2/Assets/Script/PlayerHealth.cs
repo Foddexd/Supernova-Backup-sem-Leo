@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.SceneManagement; // Adicione esta linha
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -41,12 +40,26 @@ public class PlayerHealth : MonoBehaviour
 
     void Die()
     {
-        Debug.Log("O jogador morreu!");
+        Debug.Log("=== JOGADOR MORREU ===");
 
-        // APENAS ESTA LINHA FOI ADICIONADA - carrega a cena de morte
-        SceneManager.LoadScene("GameOver");
+        // 1. Salva o estado atual
+        PlayerPrefs.Save();
 
-        // Mantém a destruição do player para evitar bugs
-        Destroy(player.gameObject);
+        // 2. Destroi o jogador
+        if (player != null)
+        {
+            Destroy(player.gameObject);
+        }
+
+        // 3. Carrega a cena de morte baseada no checkpoint
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.PlayerDied();
+        }
+        else
+        {
+            // Fallback: carrega GameOver1
+            UnityEngine.SceneManagement.SceneManager.LoadScene("GameOver1");
+        }
     }
 }

@@ -5,13 +5,15 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
-    [Header("Nomes das Cenas - CONFIGURE AQUI!")]
+    [Header("Nomes das Cenas Principais")]
     public string cenaAto1 = "Jogo Oficial";
     public string cenaAto2e3 = "Ato 2 e 3";
     public string cenaAto3 = "Ato 3";
 
-    [Header("Debug")]
-    public bool debugMode = true;
+    [Header("Cenas de Morte por Checkpoint")]
+    public string cenaMorteCheckpoint1 = "GameOver1";
+    public string cenaMorteCheckpoint2 = "GameOver2";
+    public string cenaMorteCheckpoint3 = "GameOver3";
 
     private void Awake()
     {
@@ -19,31 +21,23 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            Debug.Log("=== GAMEMANAGER INICIADO ===");
-
-            if (debugMode)
-            {
-                Debug.Log($"Cena Ato1: {cenaAto1}");
-                Debug.Log($"Cena Ato2e3: {cenaAto2e3}");
-                Debug.Log($"Cena Ato3: {cenaAto3}");
-                Debug.Log($"Checkpoint salvo: {GetCurrentCheckpoint()}");
-            }
+            Debug.Log("GameManager iniciado");
         }
         else
         {
             Destroy(gameObject);
-            return;
         }
     }
 
     public void SetCheckpoint(int checkpointLevel)
     {
-        int currentCheckpoint = GetCurrentCheckpoint();
-        if (checkpointLevel > currentCheckpoint)
+        int current = PlayerPrefs.GetInt("CurrentCheckpoint", 1);
+
+        if (checkpointLevel > current)
         {
             PlayerPrefs.SetInt("CurrentCheckpoint", checkpointLevel);
             PlayerPrefs.Save();
-            Debug.Log($"CHECKPOINT ATUALIZADO: Nível {checkpointLevel}");
+            Debug.Log($"Checkpoint salvo: {checkpointLevel}");
         }
     }
 
@@ -56,57 +50,43 @@ public class GameManager : MonoBehaviour
     {
         PlayerPrefs.SetInt("CurrentCheckpoint", 1);
         PlayerPrefs.Save();
-        Debug.Log("=== CHECKPOINTS RESETADOS ===");
+        Debug.Log("Checkpoints resetados");
     }
 
     public void LoadCheckpointScene()
     {
-        Debug.Log("=== INICIANDO LOADCHECKPOINTSCENE ===");
         Time.timeScale = 1f;
-
-        // SALVA todas as configurações antes de trocar de cena
         PlayerPrefs.Save();
 
-        // Aplica configurações salvas antes de carregar
-        if (AudioManager.instance != null)
-        {
-            AudioManager.instance.LoadAudioSettings();
-        }
-
-        if (BrightnessManager.instance != null)
-        {
-            BrightnessManager.instance.ApplyBrightness();
-        }
-
         int checkpoint = GetCurrentCheckpoint();
-        Debug.Log($"Checkpoint a carregar: {checkpoint}");
-
-        string sceneName = "";
-
-        switch (checkpoint)
+        string sceneName = checkpoint switch
         {
-            case 1:
-                sceneName = cenaAto1;
-                break;
-            case 2:
-                sceneName = cenaAto2e3;
-                break;
-            case 3:
-                sceneName = cenaAto3;
-                break;
-            default:
-                sceneName = cenaAto1;
-                break;
-        }
+            1 => cenaAto1,
+            2 => cenaAto2e3,
+            3 => cenaAto3,
+            _ => cenaAto1
+        };
 
-        Debug.Log($"Carregando cena: {sceneName}");
+        Debug.Log($"Carregando checkpoint {checkpoint}: {sceneName}");
         SceneManager.LoadScene(sceneName);
     }
 
-    // Método chamado quando o jogador morre
+    // Método para quando o jogador morre
     public void PlayerDied()
     {
-        Debug.Log("Player morreu, recarregando checkpoint...");
-        LoadCheckpointScene();
+        int checkpoint = GetCurrentCheckpoint();
+        string deathScene = checkpoint switch
+        {
+            1 => cenaMorteCheckpoint1,
+            2 => cenaMorteCheckpoint2,
+            3 => cenaMorteCheckpoint3,
+            _ => cenaMorteCheckpoint1
+        };
+
+        Debug.Log($"Jogador morreu no checkpoint {checkpoint}. Indo para: {deathScene}");
+
+        Time.timeScale = 1f;
+        PlayerPrefs.Save();
+        SceneManager.LoadScene(deathScene);
     }
 }

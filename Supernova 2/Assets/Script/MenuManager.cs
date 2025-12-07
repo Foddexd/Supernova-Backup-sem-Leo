@@ -39,6 +39,12 @@ public class MenuManager : MonoBehaviour
 
     private void Start()
     {
+        if (UnityEngine.SceneManagement.SceneManager.GetActiveScene().name == "GameOver")
+        {
+            enabled = false;
+            Debug.Log("MenuManager desativado na cena GameOver");
+            return;
+        }
         if (canPause)
         {
             EnableCursor(false);
@@ -207,17 +213,16 @@ public class MenuManager : MonoBehaviour
 
     public void ReiniciarJogo()
     {
-        Debug.Log("=== REINICIAR JOGO CHAMADO ===");
-
-        if (GameManager.instance == null)
-        {
-            Debug.LogError("GAMEMANAGER NÃO ENCONTRADO!");
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            return;
-        }
-
         Time.timeScale = 1f;
-        GameManager.instance.LoadCheckpointScene();
+
+        if (GameManager.instance != null)
+        {
+            GameManager.instance.LoadCheckpointScene();
+        }
+        else
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
     }
 
     public void SairDoJogo()
@@ -234,18 +239,20 @@ public class MenuManager : MonoBehaviour
 
     public void NovoJogo()
     {
-        Debug.Log("=== NOVO JOGO CHAMADO ===");
         Time.timeScale = 1f;
 
+        // Reseta checkpoints
         if (GameManager.instance != null)
         {
             GameManager.instance.ResetCheckpoints();
-            SceneManager.LoadScene("Jogo Oficial");
         }
         else
         {
-            SceneManager.LoadScene("Jogo Oficial");
+            PlayerPrefs.SetInt("CurrentCheckpoint", 1);
+            PlayerPrefs.Save();
         }
+
+        SceneManager.LoadScene("Jogo Oficial");
     }
 
     public void ReiniciarCenaSimples()

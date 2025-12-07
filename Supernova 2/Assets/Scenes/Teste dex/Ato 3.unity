@@ -2913,11 +2913,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 27593505}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1841c1fdf25f1a944bf3f466863c5bbe, type: 3}
+  m_Script: {fileID: 11500000, guid: eba37a6d65ae3b2428d0d28d2c9cafac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resetarAoIniciar: 1
-  habilitarTeclasDebug: 1
 --- !u!4 &27833875 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 427a10660d49b3a408ad8c180fb88ccd, type: 3}
@@ -9989,6 +9987,7 @@ MonoBehaviour:
   item10: {fileID: 0}
   isCheckpointt: 0
   checkpointLevel: 3
+  debugLog: 1
 --- !u!65 &97157837
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -13641,6 +13640,7 @@ MonoBehaviour:
   item10: {fileID: 0}
   isCheckpointt: 0
   checkpointLevel: 3
+  debugLog: 1
 --- !u!114 &128359360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14943,6 +14943,7 @@ MonoBehaviour:
   item10: {fileID: 0}
   isCheckpointt: 0
   checkpointLevel: 3
+  debugLog: 1
 --- !u!1 &139701798
 GameObject:
   m_ObjectHideFlags: 0
@@ -21058,6 +21059,7 @@ MonoBehaviour:
   item10: {fileID: 0}
   isCheckpointt: 0
   checkpointLevel: 3
+  debugLog: 1
 --- !u!65 &184586707
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -47744,6 +47746,7 @@ MonoBehaviour:
   item10: {fileID: 0}
   isCheckpointt: 0
   checkpointLevel: 3
+  debugLog: 1
 --- !u!65 &407898214
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -129342,6 +129345,7 @@ MonoBehaviour:
   item10: {fileID: 0}
   isCheckpointt: 1
   checkpointLevel: 3
+  debugLog: 1
 --- !u!65 &1135982288
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -140685,6 +140689,10 @@ PrefabInstance:
       propertyPath: darkOverlayPrefab
       value: 
       objectReference: {fileID: 1133902314}
+    - target: {fileID: 1560515559723854167, guid: 02c0948c62e37dc4cab12e5020593c68, type: 3}
+      propertyPath: desativarRedirecionamento
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1862379133406594188, guid: 02c0948c62e37dc4cab12e5020593c68, type: 3}
       propertyPath: m_Name
       value: Managers
@@ -155927,6 +155935,7 @@ MonoBehaviour:
   item10: {fileID: 0}
   isCheckpointt: 0
   checkpointLevel: 3
+  debugLog: 1
 --- !u!1 &1375249770 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 3aefc1211ca4a514b95cae8537999291, type: 3}
@@ -170847,6 +170856,7 @@ MonoBehaviour:
   item10: {fileID: 0}
   isCheckpointt: 0
   checkpointLevel: 3
+  debugLog: 1
 --- !u!65 &1487342831
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -218487,6 +218497,7 @@ MonoBehaviour:
   item10: {fileID: 0}
   isCheckpointt: 0
   checkpointLevel: 3
+  debugLog: 1
 --- !u!65 &1886244115
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -227826,6 +227837,7 @@ MonoBehaviour:
   item10: {fileID: 0}
   isCheckpointt: 0
   checkpointLevel: 3
+  debugLog: 1
 --- !u!65 &1974730876
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -246746,6 +246758,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 2.4836426
       objectReference: {fileID: 0}
+    - target: {fileID: 519844778791608163, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
+      propertyPath: resetarAoIniciar
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 519844778791608163, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
+      propertyPath: habilitarTeclasDebug
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 555008211771945021, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 2.4835205
@@ -248065,6 +248085,7 @@ PrefabInstance:
     - {fileID: 3393063493793629342, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
     - {fileID: 3862724329769053262, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
     - {fileID: 3368021212847035711, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
+    - {fileID: 7459383500627409878, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 2424061792579264005, guid: fd1eba4c16ba7c047b5f49de55731a8f, type: 3}
       insertIndex: 3

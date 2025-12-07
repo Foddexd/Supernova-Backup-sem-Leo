@@ -16,7 +16,8 @@ public class TriggerActivator : MonoBehaviour
 
     [Header("Configurações do Checkpoint")]
     public bool isCheckpointt = false;
-    public int checkpointLevel = 3; // 2 = Ato 2, 3 = Ato 3
+    public int checkpointLevel = 3;
+    public bool debugLog = true;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -37,8 +38,34 @@ public class TriggerActivator : MonoBehaviour
             // Sistema de checkpoint
             if (isCheckpointt)
             {
-                GameManager.instance.SetCheckpoint(checkpointLevel);
-                Debug.Log($"Checkpoint ativado! Nível {checkpointLevel}");
+                if (debugLog)
+                {
+                    Debug.Log($"=== TRIGGER ACTIVATOR CHECKPOINT ===");
+                    Debug.Log($"Trigger: {name}, Nível: {checkpointLevel}");
+                    Debug.Log($"Antes: PlayerPrefs = {PlayerPrefs.GetInt("CurrentCheckpoint", 1)}");
+                }
+
+                // Chama o GameManager para salvar
+                if (GameManager.instance != null)
+                {
+                    GameManager.instance.SetCheckpoint(checkpointLevel);
+                }
+                else
+                {
+                    // Fallback direto
+                    int current = PlayerPrefs.GetInt("CurrentCheckpoint", 1);
+                    if (checkpointLevel > current)
+                    {
+                        PlayerPrefs.SetInt("CurrentCheckpoint", checkpointLevel);
+                        PlayerPrefs.Save();
+                        Debug.Log($"Checkpoint {checkpointLevel} salvo direto no PlayerPrefs");
+                    }
+                }
+
+                if (debugLog)
+                {
+                    Debug.Log($"Depois: PlayerPrefs = {PlayerPrefs.GetInt("CurrentCheckpoint", 1)}");
+                }
             }
         }
     }
